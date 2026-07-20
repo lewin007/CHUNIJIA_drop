@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CHU-NI-JI-A — Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black:#0a0a0a;
+    --black-2:#131313;
+    --black-3:#1a1a1a;
+    --white:#f5f5f0;
+    --red:#c8102e;
+    --red-glow:#ff2b45;
+    --green:#2fbf71;
+    --line:rgba(245,245,240,0.12);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    background:var(--black);
+    color:var(--white);
+    font-family:'Noto Sans JP',sans-serif;
+    min-height:100vh;
+  }
+  .bebas{font-family:'Bebas Neue',sans-serif;letter-spacing:0.05em;}
+
+  /* ---------- LOGIN ---------- */
+  #loginScreen{
+    position:fixed;inset:0;z-index:1000;
+    background:radial-gradient(circle at 50% 30%, rgba(200,16,46,0.12), var(--black) 60%);
+    display:flex;align-items:center;justify-content:center;
+    transition:opacity 0.5s ease;
+  }
+  .login-card{
+    width:340px;
+    max-width:90vw;
+    border:1px solid var(--line);
+    background:var(--black-2);
+    padding:40px 30px;
+    text-align:center;
+  }
+  .login-card h1{font-size:30px;margin-bottom:4px;}
+  .login-card .jp{font-size:12px;letter-spacing:0.3em;color:rgba(245,245,240,0.4);margin-bottom:30px;}
+  .login-card input{
+    width:100%;
+    background:transparent;
+    border:none;
+    border-bottom:1px solid var(--line);
+    color:var(--white);
+    padding:12px 4px;
+    margin-bottom:22px;
+    font-size:14px;
+    outline:none;
+    transition:border-color 0.3s ease;
+  }
+  .login-card input:focus{border-color:var(--red);}
+  .login-card button{
+    width:100%;
+    padding:14px;
+    background:var(--white);
+    border:none;
+    color:var(--black);
+    font-family:'Bebas Neue',sans-serif;
+    font-size:16px;
+    letter-spacing:0.15em;
+    cursor:pointer;
+    transition:background 0.3s ease, color 0.3s ease;
+  }
+  .login-card button:hover{background:var(--red);color:var(--white);}
+  .login-err{
+    color:var(--red-glow);
+    font-size:11px;
+    margin-top:14px;
+    min-height:14px;
+    letter-spacing:0.05em;
+  }
+
+  /* ---------- TOPBAR ---------- */
+  #dashboard{display:none;}
+  #dashboard.show{display:block;}
+  header{
+    position:sticky;top:0;z-index:100;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px 26px;
+    background:rgba(10,10,10,0.9);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .brand-tag{display:flex;align-items:center;gap:10px;}
+  .brand-tag .bebas{font-size:20px;}
+  .admin-pill{
+    font-size:9px;letter-spacing:0.15em;
+    border:1px solid var(--red);color:var(--red);
+    padding:3px 8px;text-transform:uppercase;
+  }
+  .clock{font-size:11px;color:rgba(245,245,240,0.5);letter-spacing:0.1em;}
+  .logout-btn{
+    background:none;border:1px solid var(--line);color:rgba(245,245,240,0.7);
+    padding:8px 16px;font-size:11px;letter-spacing:0.1em;cursor:pointer;
+    text-transform:uppercase;transition:border-color 0.3s ease,color 0.3s ease;
+  }
+  .logout-btn:hover{border-color:var(--white);color:var(--white);}
+
+  main{max-width:1200px;margin:0 auto;padding:30px 26px 80px;}
+
+  /* ---------- STATS ---------- */
+  .stats{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:34px;
+  }
+  .stat-card{
+    border:1px solid var(--line);
+    background:var(--black-2);
+    padding:20px;
+    animation:fadeIn 0.5s ease both;
+  }
+  .stat-card .label{font-size:10px;letter-spacing:0.15em;color:rgba(245,245,240,0.45);text-transform:uppercase;}
+  .stat-card .value{font-family:'Bebas Neue',sans-serif;font-size:36px;margin-top:8px;}
+  .stat-card.accent .value{color:var(--red);}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+
+  /* ---------- TOOLBAR ---------- */
+  .toolbar{
+    display:flex;flex-wrap:wrap;align-items:center;gap:12px;
+    margin-bottom:20px;
+  }
+  .toolbar h2{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:0.05em;}
+  .count-badge{
+    font-size:11px;color:rgba(245,245,240,0.5);
+    border:1px solid var(--line);padding:3px 10px;
+  }
+  .search-input{
+    flex:1;min-width:160px;
+    background:var(--black-2);border:1px solid var(--line);
+    color:var(--white);padding:10px 14px;font-size:13px;outline:none;
+    transition:border-color 0.3s ease;
+  }
+  .search-input:focus{border-color:var(--red);}
+  .filter-btns{display:flex;gap:6px;flex-wrap:wrap;}
+  .filter-btn{
+    background:none;border:1px solid var(--line);color:rgba(245,245,240,0.6);
+    padding:8px 12px;font-size:11px;letter-spacing:0.08em;cursor:pointer;
+    text-transform:uppercase;transition:all 0.25s ease;
+  }
+  .filter-btn:hover{border-color:rgba(245,245,240,0.4);}
+  .filter-btn.active{background:var(--red);border-color:var(--red);color:var(--white);}
+  .icon-btn{
+    background:none;border:1px solid var(--line);color:rgba(245,245,240,0.7);
+    padding:9px 14px;font-size:11px;cursor:pointer;letter-spacing:0.08em;
+    text-transform:uppercase;transition:border-color 0.3s ease,color 0.3s ease;
+  }
+  .icon-btn:hover{border-color:var(--white);color:var(--white);}
+
+  /* ---------- TABLE ---------- */
+  .table-wrap{border:1px solid var(--line);overflow-x:auto;}
+  table{width:100%;border-collapse:collapse;min-width:820px;}
+  thead th{
+    text-align:left;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;
+    color:rgba(245,245,240,0.45);padding:14px 16px;border-bottom:1px solid var(--line);
+    background:var(--black-2);
+  }
+  tbody td{
+    padding:14px 16px;font-size:13px;border-bottom:1px solid var(--line);
+    color:rgba(245,245,240,0.85);white-space:nowrap;
+  }
+  tbody tr{animation:fadeIn 0.4s ease both;cursor:pointer;transition:background 0.2s ease;}
+  tbody tr:hover{background:var(--black-3);}
+  .status-pill{
+    font-size:10px;letter-spacing:0.08em;text-transform:uppercase;
+    padding:4px 10px;display:inline-block;
+  }
+  .status-pending{border:1px solid #d9a441;color:#d9a441;}
+  .status-confirmed{border:1px solid var(--green);color:var(--green);}
+  .status-cancelled{border:1px solid var(--red-glow);color:var(--red-glow);}
+  .row-actions{display:flex;gap:6px;}
+  .row-actions button{
+    background:none;border:1px solid var(--line);color:rgba(245,245,240,0.7);
+    width:28px;height:28px;cursor:pointer;font-size:13px;
+    transition:all 0.2s ease;
+  }
+  .row-actions button:hover{border-color:var(--white);color:var(--white);}
+  .row-actions .confirm:hover{border-color:var(--green);color:var(--green);}
+  .row-actions .cancel:hover{border-color:var(--red-glow);color:var(--red-glow);}
+  .row-actions .delete:hover{border-color:var(--red-glow);color:var(--red-glow);}
+
+  .empty-state{
+    text-align:center;padding:70px 20px;color:rgba(245,245,240,0.4);
+  }
+  .empty-state .bebas{font-size:22px;color:rgba(245,245,240,0.6);margin-bottom:8px;}
+
+  .pagination{
+    display:flex;align-items:center;justify-content:space-between;
+    margin-top:18px;font-size:12px;color:rgba(245,245,240,0.5);
+  }
+  .pagination .btns{display:flex;gap:8px;}
+  .pagination button{
+    background:none;border:1px solid var(--line);color:rgba(245,245,240,0.7);
+    padding:7px 14px;font-size:11px;cursor:pointer;letter-spacing:0.08em;
+    transition:border-color 0.3s ease;
+  }
+  .pagination button:hover:not(:disabled){border-color:var(--white);color:var(--white);}
+  .pagination button:disabled{opacity:0.3;cursor:not-allowed;}
+
+  /* ---------- DRAWER ---------- */
+  .drawer-overlay{
+    position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:200;
+    opacity:0;pointer-events:none;transition:opacity 0.3s ease;
+  }
+  .drawer-overlay.show{opacity:1;pointer-events:all;}
+  .drawer{
+    position:fixed;top:0;right:0;height:100%;width:380px;max-width:90vw;
+    background:var(--black-2);border-left:1px solid var(--line);
+    z-index:201;transform:translateX(100%);transition:transform 0.4s cubic-bezier(.16,1,.3,1);
+    padding:28px 26px;overflow-y:auto;
+  }
+  .drawer.show{transform:translateX(0);}
+  .drawer-close{
+    background:none;border:none;color:rgba(245,245,240,0.6);font-size:20px;
+    cursor:pointer;float:right;
+  }
+  .drawer h3{font-family:'Bebas Neue',sans-serif;font-size:26px;margin:20px 0 20px;clear:both;}
+  .drawer .drow{padding:12px 0;border-bottom:1px solid var(--line);}
+  .drawer .drow .dl{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,245,240,0.4);margin-bottom:4px;}
+  .drawer .drow .dv{font-size:14px;}
+  .drawer-actions{display:flex;gap:8px;margin-top:24px;}
+  .drawer-actions button{
+    flex:1;padding:12px;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;
+    border:1px solid var(--line);background:none;color:var(--white);cursor:pointer;
+    transition:all 0.2s ease;
+  }
+  .drawer-actions .confirm:hover{background:var(--green);border-color:var(--green);color:var(--black);}
+  .drawer-actions .cancel:hover{background:var(--red-glow);border-color:var(--red-glow);}
+  .drawer-actions .delete:hover{background:var(--red);border-color:var(--red);}
+
+  /* toast */
+  .toast{
+    position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);
+    background:var(--green);color:var(--black);padding:12px 22px;font-size:12px;
+    letter-spacing:0.08em;opacity:0;pointer-events:none;transition:all 0.35s ease;
+    z-index:10000;text-transform:uppercase;font-weight:600;
+  }
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+  .toast.error{background:var(--red-glow);color:var(--white);}
+
+  @media (max-width:760px){
+    .stats{grid-template-columns:repeat(2,1fr);}
+    .toolbar{flex-direction:column;align-items:stretch;}
+  }
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="loginScreen">
+  <div class="login-card">
+    <h1 class="bebas">CHU-NI-JI-A</h1>
+    <div class="jp">管理者 — ADMIN ACCESS</div>
+    <input type="email" id="loginEmail" placeholder="Email" autocomplete="username">
+    <input type="password" id="loginPassword" placeholder="Password" autocomplete="current-password">
+    <button id="loginBtn">Sign In</button>
+    <div class="login-err" id="loginErr"></div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard">
+  <header>
+    <div class="brand-tag">
+      <span class="bebas">CHU-NI-JI-A</span>
+      <span class="admin-pill">Admin</span>
+    </div>
+    <div class="clock" id="clock"></div>
+    <button class="logout-btn" id="logoutBtn">Logout</button>
+  </header>
+
+  <main>
+    <div class="stats">
+      <div class="stat-card"><div class="label">Total Orders</div><div class="value" id="statTotal">0</div></div>
+      <div class="stat-card"><div class="label">Confirmed</div><div class="value" id="statConfirmed">0</div></div>
+      <div class="stat-card"><div class="label">Pending</div><div class="value" id="statPending">0</div></div>
+      <div class="stat-card accent"><div class="label">Top Size</div><div class="value" id="statTopSize">—</div></div>
+    </div>
+
+    <div class="toolbar">
+      <h2>Orders</h2>
+      <span class="count-badge" id="countBadge">0 orders</span>
+      <input type="text" class="search-input" id="searchInput" placeholder="Search name, phone, wilaya, order ID...">
+      <div class="filter-btns" id="sizeFilters">
+        <button class="filter-btn active" data-size="ALL">All</button>
+        <button class="filter-btn" data-size="S">S</button>
+        <button class="filter-btn" data-size="M">M</button>
+        <button class="filter-btn" data-size="L">L</button>
+        <button class="filter-btn" data-size="XL">XL</button>
+      </div>
+      <div class="filter-btns" id="statusFilters">
+        <button class="filter-btn active" data-status="ALL">All Status</button>
+        <button class="filter-btn" data-status="pending">Pending</button>
+        <button class="filter-btn" data-status="confirmed">Confirmed</button>
+      </div>
+      <button class="icon-btn" id="refreshBtn">↻ Refresh</button>
+      <button class="icon-btn" id="exportBtn">⬇ Export CSV</button>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Order ID</th><th>Full Name</th><th>Phone</th><th>Size</th>
+            <th>Wilaya</th><th>Date</th><th>Status</th><th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+      <div class="empty-state" id="emptyState" style="display:none;">
+        <div class="bebas">夢 No Orders Yet</div>
+        <p>Preorders will appear here as customers reserve the drop.</p>
+      </div>
+    </div>
+
+    <div class="pagination">
+      <span id="paginationInfo">Showing 0–0 of 0</span>
+      <div class="btns">
+        <button id="prevBtn">← Prev</button>
+        <button id="nextBtn">Next →</button>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div class="drawer-overlay" id="drawerOverlay"></div>
+<div class="drawer" id="drawer">
+  <button class="drawer-close" id="drawerClose">✕</button>
+  <h3>Order Detail</h3>
+  <div id="drawerContent"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script type="module">
+  // ============================================================
+  // 🔥 PASTE YOUR FIREBASE CONFIG HERE
+  // Firebase Console → Project Settings → Your Apps → SDK setup
+  // ============================================================
+
+
+  const firebaseConfig = {
+
+  apiKey: "AIzaSyC6qMv45NYb4tCC40-mpaVQT_YcHIN7C7s",
+
+  authDomain: "chunijia.firebaseapp.com",
+
+  databaseURL: "https://chunijia-default-rtdb.europe-west1.firebasedatabase.app",
+
+  projectId: "chunijia",
+
+  storageBucket: "chunijia.firebasestorage.app",
+
+  messagingSenderId: "442351281491",
+
+  appId: "1:442351281491:web:f758336101d8ece738ada6"
+
+};
+
+  // ============================================================
+
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+  import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
+  import { getFirestore, collection, getDocs, doc, updateDoc, deleteDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  let allOrders = [];
+  let filteredOrders = [];
+  let currentPage = 1;
+  const PAGE_SIZE = 15;
+  let activeSizeFilter = 'ALL';
+  let activeStatusFilter = 'ALL';
+  let searchTerm = '';
+  let activeOrderId = null;
+
+  // ---------- AUTH ----------
+  const loginScreen = document.getElementById('loginScreen');
+  const dashboard = document.getElementById('dashboard');
+  const loginErr = document.getElementById('loginErr');
+
+  document.getElementById('loginBtn').addEventListener('click', doLogin);
+  document.getElementById('loginPassword').addEventListener('keydown', e => { if(e.key === 'Enter') doLogin(); });
+
+  async function doLogin(){
+    const email = document.getElementById('loginEmail').value.trim();
+    const password = document.getElementById('loginPassword').value;
+    loginErr.textContent = '';
+    if(!email || !password){ loginErr.textContent = 'Enter email and password'; return; }
+    try{
+      await signInWithEmailAndPassword(auth, email, password);
+    } catch(err){
+      loginErr.textContent = 'Invalid email or password';
+    }
+  }
+
+  document.getElementById('logoutBtn').addEventListener('click', () => signOut(auth));
+
+  onAuthStateChanged(auth, (user) => {
+    if(user){
+      loginScreen.style.opacity = '0';
+      setTimeout(() => { loginScreen.style.display = 'none'; }, 500);
+      dashboard.classList.add('show');
+      loadOrders();
+    } else {
+      loginScreen.style.display = 'flex';
+      loginScreen.style.opacity = '1';
+      dashboard.classList.remove('show');
+    }
+  });
+
+  // ---------- CLOCK ----------
+  function tickClock(){
+    document.getElementById('clock').textContent = new Date().toLocaleString('en-GB', { dateStyle:'medium', timeStyle:'short' });
+  }
+  tickClock();
+  setInterval(tickClock, 1000);
+
+  // ---------- LOAD ORDERS ----------
+  async function loadOrders(){
+    try{
+      const q = query(collection(db, "preorders"), orderBy("createdAt", "desc"));
+      const snap = await getDocs(q);
+      allOrders = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      applyFilters();
+    } catch(err){
+      console.error(err);
+      showToast('Failed to load orders', true);
+    }
+  }
+
+  document.getElementById('refreshBtn').addEventListener('click', () => { loadOrders(); showToast('Refreshed'); });
+
+  // ---------- FILTERS ----------
+  document.getElementById('searchInput').addEventListener('input', (e) => {
+    searchTerm = e.target.value.toLowerCase();
+    currentPage = 1;
+    applyFilters();
+  });
+
+  document.getElementById('sizeFilters').addEventListener('click', (e) => {
+    if(e.target.tagName !== 'BUTTON') return;
+    document.querySelectorAll('#sizeFilters .filter-btn').forEach(b => b.classList.remove('active'));
+    e.target.classList.add('active');
+    activeSizeFilter = e.target.dataset.size;
+    currentPage = 1;
+    applyFilters();
+  });
+
+  document.getElementById('statusFilters').addEventListener('click', (e) => {
+    if(e.target.tagName !== 'BUTTON') return;
+    document.querySelectorAll('#statusFilters .filter-btn').forEach(b => b.classList.remove('active'));
+    e.target.classList.add('active');
+    activeStatusFilter = e.target.dataset.status;
+    currentPage = 1;
+    applyFilters();
+  });
+
+  function applyFilters(){
+    filteredOrders = allOrders.filter(o => {
+      if(activeSizeFilter !== 'ALL' && o.size !== activeSizeFilter) return false;
+      if(activeStatusFilter !== 'ALL' && o.status !== activeStatusFilter) return false;
+      if(searchTerm){
+        const hay = `${o.fullName||''} ${o.phone||''} ${o.wilaya||''} ${o.orderId||''}`.toLowerCase();
+        if(!hay.includes(searchTerm)) return false;
+      }
+      return true;
+    });
+    renderStats();
+    renderTable();
+  }
+
+  // ---------- STATS ----------
+  function renderStats(){
+    document.getElementById('statTotal').textContent = allOrders.length;
+    document.getElementById('statConfirmed').textContent = allOrders.filter(o => o.status === 'confirmed').length;
+    document.getElementById('statPending').textContent = allOrders.filter(o => o.status === 'pending').length;
+
+    const sizeCounts = {};
+    allOrders.forEach(o => { if(o.size) sizeCounts[o.size] = (sizeCounts[o.size]||0) + 1; });
+    const top = Object.entries(sizeCounts).sort((a,b) => b[1]-a[1])[0];
+    document.getElementById('statTopSize').textContent = top ? top[0] : '—';
+  }
+
+  // ---------- TABLE ----------
+  function renderTable(){
+    const tbody = document.getElementById('tableBody');
+    const emptyState = document.getElementById('emptyState');
+    document.getElementById('countBadge').textContent = `${filteredOrders.length} order${filteredOrders.length === 1 ? '' : 's'}`;
+
+    if(filteredOrders.length === 0){
+      tbody.innerHTML = '';
+      emptyState.style.display = 'block';
+      document.getElementById('paginationInfo').textContent = 'Showing 0–0 of 0';
+      document.getElementById('prevBtn').disabled = true;
+      document.getElementById('nextBtn').disabled = true;
+      return;
+    }
+    emptyState.style.display = 'none';
+
+    const totalPages = Math.ceil(filteredOrders.length / PAGE_SIZE);
+    if(currentPage > totalPages) currentPage = totalPages;
+    const start = (currentPage - 1) * PAGE_SIZE;
+    const pageItems = filteredOrders.slice(start, start + PAGE_SIZE);
+
+    tbody.innerHTML = pageItems.map((o, i) => `
+      <tr style="animation-delay:${i * 0.03}s" data-id="${o.id}">
+        <td>${o.orderId || '—'}</td>
+        <td>${o.fullName || '—'}</td>
+        <td>${o.phone || '—'}</td>
+        <td>${o.size || '—'}</td>
+        <td>${o.wilaya || '—'}</td>
+        <td>${formatDate(o.createdAt)}</td>
+        <td><span class="status-pill status-${o.status||'pending'}">${o.status||'pending'}</span></td>
+        <td>
+          <div class="row-actions">
+            <button class="confirm" title="Confirm" data-action="confirm" data-id="${o.id}">✓</button>
+            <button class="cancel" title="Cancel" data-action="cancel" data-id="${o.id}">⊗</button>
+            <button class="delete" title="Delete" data-action="delete" data-id="${o.id}">⌫</button>
+          </div>
+        </td>
+      </tr>
+    `).join('');
+
+    document.getElementById('paginationInfo').textContent =
+      `Showing ${start+1}–${Math.min(start+PAGE_SIZE, filteredOrders.length)} of ${filteredOrders.length}`;
+    document.getElementById('prevBtn').disabled = currentPage === 1;
+    document.getElementById('nextBtn').disabled = currentPage === totalPages;
+
+    tbody.querySelectorAll('tr').forEach(row => {
+      row.addEventListener('click', (e) => {
+        if(e.target.closest('.row-actions')) return;
+        openDrawer(row.dataset.id);
+      });
+    });
+
+    tbody.querySelectorAll('[data-action]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const action = btn.dataset.action;
+        const id = btn.dataset.id;
+        if(action === 'confirm') updateStatus(id, 'confirmed');
+        if(action === 'cancel') updateStatus(id, 'cancelled');
+        if(action === 'delete') deleteOrder(id);
+      });
+    });
+  }
+
+  function formatDate(ts){
+    if(!ts || !ts.toDate) return '—';
+    return ts.toDate().toLocaleDateString('en-GB', { day:'2-digit', month:'short', year:'numeric' });
+  }
+
+  document.getElementById('prevBtn').addEventListener('click', () => { currentPage--; renderTable(); });
+  document.getElementById('nextBtn').addEventListener('click', () => { currentPage++; renderTable(); });
+
+  // ---------- ACTIONS ----------
+  async function updateStatus(id, status){
+    try{
+      await updateDoc(doc(db, "preorders", id), { status });
+      const o = allOrders.find(o => o.id === id);
+      if(o) o.status = status;
+      applyFilters();
+      showToast(`Order marked ${status}`);
+      closeDrawer();
+    } catch(err){
+      console.error(err);
+      showToast('Update failed', true);
+    }
+  }
+
+  async function deleteOrder(id){
+    if(!confirm('Delete this order permanently?')) return;
+    try{
+      await deleteDoc(doc(db, "preorders", id));
+      allOrders = allOrders.filter(o => o.id !== id);
+      applyFilters();
+      showToast('Order deleted');
+      closeDrawer();
+    } catch(err){
+      console.error(err);
+      showToast('Delete failed', true);
+    }
+  }
+
+  // ---------- DRAWER ----------
+  const drawer = document.getElementById('drawer');
+  const drawerOverlay = document.getElementById('drawerOverlay');
+
+  function openDrawer(id){
+    const o = allOrders.find(o => o.id === id);
+    if(!o) return;
+    activeOrderId = id;
+    document.getElementById('drawerContent').innerHTML = `
+      <div class="drow"><div class="dl">Order ID</div><div class="dv">${o.orderId||'—'}</div></div>
+      <div class="drow"><div class="dl">Full Name</div><div class="dv">${o.fullName||'—'}</div></div>
+      <div class="drow"><div class="dl">Email</div><div class="dv">${o.email||'—'}</div></div>
+      <div class="drow"><div class="dl">Phone</div><div class="dv">${o.phone||'—'}</div></div>
+      <div class="drow"><div class="dl">Address</div><div class="dv">${o.address||'—'}</div></div>
+      <div class="drow"><div class="dl">Wilaya</div><div class="dv">${o.wilaya||'—'}</div></div>
+      <div class="drow"><div class="dl">Size</div><div class="dv">${o.size||'—'}</div></div>
+      <div class="drow"><div class="dl">Expectation</div><div class="dv">${o.expectation||'—'}</div></div>
+      <div class="drow"><div class="dl">Status</div><div class="dv">${o.status||'pending'}</div></div>
+      <div class="drow"><div class="dl">Date</div><div class="dv">${formatDate(o.createdAt)}</div></div>
+      <div class="drawer-actions">
+        <button class="confirm" onclick="window.__confirmOrder()">Confirm</button>
+        <button class="cancel" onclick="window.__cancelOrder()">Cancel</button>
+        <button class="delete" onclick="window.__deleteOrder()">Delete</button>
+      </div>
+    `;
+    drawer.classList.add('show');
+    drawerOverlay.classList.add('show');
+  }
+
+  window.__confirmOrder = () => updateStatus(activeOrderId, 'confirmed');
+  window.__cancelOrder = () => updateStatus(activeOrderId, 'cancelled');
+  window.__deleteOrder = () => deleteOrder(activeOrderId);
+
+  function closeDrawer(){
+    drawer.classList.remove('show');
+    drawerOverlay.classList.remove('show');
+    activeOrderId = null;
+  }
+  document.getElementById('drawerClose').addEventListener('click', closeDrawer);
+  drawerOverlay.addEventListener('click', closeDrawer);
+
+  // ---------- EXPORT CSV ----------
+  document.getElementById('exportBtn').addEventListener('click', () => {
+    if(filteredOrders.length === 0){ showToast('No orders to export', true); return; }
+    const headers = ['Order ID','First Name','Last Name','Email','Phone','Address','Wilaya','Size','Expectation','Status','Date'];
+    const rows = filteredOrders.map(o => [
+      o.orderId, o.firstName, o.lastName, o.email, o.phone, o.address, o.wilaya, o.size, o.expectation, o.status,
+      o.createdAt && o.createdAt.toDate ? o.createdAt.toDate().toISOString() : ''
+    ]);
+    const csv = [headers, ...rows].map(r =>
+      r.map(v => `"${String(v||'').replace(/"/g,'""')}"`).join(',')
+    ).join('\n');
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `chunijia-orders-${Date.now()}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+    showToast('CSV exported');
+  });
+
+  // ---------- TOAST ----------
+  function showToast(msg, isError){
+    const toast = document.getElementById('toast');
+    toast.textContent = msg;
+    toast.classList.toggle('error', !!isError);
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2600);
+  }
+</script>
+
+</body>
+</html>
