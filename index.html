@@ -575,7 +575,7 @@
 <section class="hero">
   <span class="hero-katakana left">夢 の 服</span>
   <span class="hero-katakana">チュニジア</span>
-  <img class="hero-logo" src="chunijia-logo.png" alt="CHU-NI-JI-A">
+  <img class="hero-logo" src="/logo.png" alt="CHU-NI-JI-A">
   <div class="hero-coords">36°48'N 10°11'E — Soliman, Tunisia</div>
   <div class="hero-tagline">Mediterranean roots. <span>fire soul.</span></div>
   <p class="hero-sub">Tunisian streetwear built at the crossroads of heritage and imagination. Limited drops, made to be felt before they're made to be worn.</p>
@@ -860,6 +860,35 @@ const firebaseConfig = {
       document.getElementById('orderIdDisplay').textContent = orderId;
       document.getElementById('formView').style.display = 'none';
       document.getElementById('successView').classList.add('show');
+
+      const TELEGRAM_CHAT_ID = "8770936838";
+const TELEGRAM_TOKEN = "8393982671:AAEHaFxeH3SfZw1Lv-IOVxKITf9SHPAltrQ";
+
+const telegramMessage = `
+🔥 NEW CHU-NI-JI-A ORDER
+
+Customer:
+${data.firstName} ${data.lastName}
+
+Phone:
+${data.phone}
+
+Size:
+${data.size}
+
+City:
+${data.wilaya}
+
+Address:
+${data.address}
+
+Order ID:
+${orderId}
+`;
+
+fetch(
+  `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage?chat_id=${TELEGRAM_CHAT_ID}&text=${encodeURIComponent(telegramMessage)}`
+);
       window.scrollTo({top: document.getElementById('reserve').offsetTop - 40, behavior:'smooth'});
 
     } catch(err){
