@@ -1,915 +1,808 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <link rel="icon" type="image/png" href="logo.png">
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CHU-NI-JI-A — Mediterranean Heritage </title>
-<meta name="description" content="CHU-NI-JI-A — Tunisian streetwear infused with anime spirit. Reserve the Mediterranean Heritage Tee.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --black:#0a0a0a;
-    --black-2:#111111;
-    --white:#f5f5f0;
-    --red:#c8102e;
-    --red-glow:#ff2b45;
-    --line:rgba(245,245,240,0.14);
-    --line-soft:rgba(245,245,240,0.08);
-  }
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#070707">
+  <meta name="color-scheme" content="light">
+  <title>CHU-NI-JI-A — Mediterranean Heritage Tee</title>
+  <meta name="description" content="The CHU-NI-JI-A Mediterranean Heritage Tee. 79 DT delivered anywhere in Tunisia. Cash on delivery only.">
+  <meta property="og:title" content="CHU-NI-JI-A — Mediterranean Heritage Tee">
+  <meta property="og:description" content="79 DT delivered across Tunisia. Pay cash when your order arrives.">
+  <meta property="og:image" content="chunijia-tee.jpg">
+  <meta property="og:type" content="product">
+  <link rel="icon" href="logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+JP:wght@500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --ink:#070707;
+      --ink-2:#111;
+      --paper:#f3f0e9;
+      --paper-2:#e9e5dc;
+      --white:#fff;
+      --red:#c8102e;
+      --red-dark:#981024;
+      --muted:#6e6a63;
+      --line:#d4cfc5;
+      --success:#17633a;
+      --radius:20px;
+      --shadow:0 24px 70px rgba(0,0,0,.14);
+      --ease:cubic-bezier(.2,.75,.25,1);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.55 Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;overflow-x:hidden}
+    button,input,select,textarea{font:inherit}
+    button,a{touch-action:manipulation}
+    button{cursor:pointer}
+    img{display:block;max-width:100%}
+    a{text-decoration:none;color:inherit}
+    :focus-visible{outline:3px solid rgba(200,16,46,.45);outline-offset:3px}
+    .container{width:min(1240px,calc(100% - 40px));margin:auto}
+    .jp{font-family:"Noto Sans JP",sans-serif}
+    .skip{position:fixed;left:-999px;top:8px;z-index:300;background:#fff;padding:11px 14px;border-radius:10px}
+    .skip:focus{left:8px}
+    .scroll-line{position:fixed;top:0;left:0;height:3px;width:0;background:var(--red);z-index:250}
 
-  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+    .announcement{background:var(--red);color:#fff;overflow:hidden;border-bottom:1px solid rgba(255,255,255,.18)}
+    .announcement-track{display:flex;width:max-content;animation:ticker 25s linear infinite}
+    .announcement-group{display:flex;align-items:center;white-space:nowrap;padding:9px 0;font-size:.68rem;font-weight:900;letter-spacing:.16em;text-transform:uppercase}
+    .announcement-group span{display:inline-flex;align-items:center}
+    .announcement-group span::after{content:"◆";font-size:.45rem;opacity:.55;margin:0 26px}
+    @keyframes ticker{to{transform:translateX(-50%)}}
 
-  html{scroll-behavior:smooth;}
+    .nav{position:sticky;top:0;z-index:80;background:rgba(7,7,7,.92);border-bottom:1px solid rgba(255,255,255,.1);backdrop-filter:blur(18px)}
+    .nav-inner{height:74px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+    .brand img{width:216px;height:48px;object-fit:contain}
+    .nav-links{display:flex;gap:30px;color:#bbb;font-size:.82rem;font-weight:600}
+    .nav-links a{position:relative;padding:8px 0;transition:color .2s}
+    .nav-links a::after{content:"";position:absolute;left:0;right:100%;bottom:2px;height:1px;background:var(--red);transition:right .25s var(--ease)}
+    .nav-links a:hover{color:#fff}
+    .nav-links a:hover::after{right:0}
+    .nav-order{border:1px solid rgba(255,255,255,.18);border-radius:12px;background:#fff;color:#111;padding:11px 17px;font-weight:900;transition:transform .2s var(--ease),background .2s}
+    .nav-order:hover{transform:translateY(-2px);background:#f1eee7}
 
-  body{
-    background:var(--black);
-    color:var(--white);
-    font-family:'Noto Sans JP',sans-serif;
-    overflow-x:hidden;
-    position:relative;
-  }
+    .hero{position:relative;padding:44px 0 82px;isolation:isolate;background:
+      radial-gradient(circle at 83% 8%,rgba(200,16,46,.15),transparent 28%),
+      linear-gradient(rgba(0,0,0,.027) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(0,0,0,.027) 1px,transparent 1px);
+      background-size:auto,36px 36px,36px 36px}
+    .hero::before{content:"チュニジア";position:absolute;right:-35px;top:88px;z-index:-1;writing-mode:vertical-rl;font:900 clamp(6rem,11vw,10rem)/1 "Noto Sans JP";color:rgba(0,0,0,.035);letter-spacing:.08em}
+    .hero-grid{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(390px,.92fr);gap:56px;align-items:start}
 
-  /* noise texture */
-  body::before{
-    content:"";
-    position:fixed;
-    inset:0;
-    z-index:9999;
-    pointer-events:none;
-    opacity:0.035;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  }
+    .gallery{position:sticky;top:112px;min-width:0}
+    .visual-shell{position:relative;padding:11px;background:#0b0b0b;border-radius:30px;box-shadow:0 35px 80px rgba(0,0,0,.18)}
+    .visual-shell::before,.visual-shell::after{content:"";position:absolute;pointer-events:none}
+    .visual-shell::before{top:-8px;right:34px;width:70px;height:18px;background:var(--red);clip-path:polygon(12% 0,100% 0,88% 100%,0 100%)}
+    .visual-shell::after{left:-8px;bottom:42px;width:18px;height:82px;background:#fff;clip-path:polygon(0 10%,100% 0,100% 90%,0 100%)}
+    .stage{position:relative;overflow:hidden;border-radius:21px;background:#c9c5bd;isolation:isolate;cursor:zoom-in}
+    .stage-image{width:100%;aspect-ratio:4/3;object-fit:cover;transition:opacity .24s,transform .7s var(--ease);transform-origin:50% 50%;will-change:transform}
+    .stage.loading .stage-image{opacity:.25}
+    @media(hover:hover) and (pointer:fine){.stage:hover .stage-image{transform:scale(1.16)}}
+    .stage-meta{position:absolute;left:15px;top:15px;display:flex;gap:7px;z-index:3}
+    .stage-tag{background:#090909;color:#fff;padding:7px 9px;border-radius:7px;font-size:.59rem;font-weight:900;letter-spacing:.16em;text-transform:uppercase}
+    .stage-tag.light{background:rgba(255,255,255,.9);color:#111;backdrop-filter:blur(8px)}
+    .image-counter{position:absolute;left:16px;bottom:15px;z-index:3;background:rgba(7,7,7,.83);color:#fff;border:1px solid rgba(255,255,255,.16);padding:8px 10px;border-radius:10px;font-size:.65rem;font-weight:800;letter-spacing:.12em}
+    .gallery-arrows{position:absolute;right:14px;bottom:13px;display:flex;gap:7px;z-index:4}
+    .round-button{width:44px;height:44px;border:1px solid rgba(0,0,0,.1);border-radius:50%;background:rgba(255,255,255,.94);display:grid;place-items:center;color:#111;transition:transform .18s,background .18s}
+    .round-button:hover{transform:translateY(-2px);background:#fff}
+    .round-button svg{width:18px;height:18px}
+    .gallery-tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:11px}
+    .gallery-tab{position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.11);border-radius:13px;background:#151515;padding:0;color:#fff;text-align:left;transition:border-color .2s,transform .2s}
+    .gallery-tab:hover{transform:translateY(-2px)}
+    .gallery-tab.active{border-color:var(--red);box-shadow:inset 0 0 0 1px var(--red)}
+    .gallery-tab img{width:100%;aspect-ratio:1.22;object-fit:cover;opacity:.72;transition:opacity .2s,transform .4s var(--ease)}
+    .gallery-tab.active img,.gallery-tab:hover img{opacity:1;transform:scale(1.035)}
+    .gallery-tab span{position:absolute;left:7px;bottom:6px;background:rgba(0,0,0,.76);padding:4px 6px;border-radius:6px;font-size:.56rem;font-weight:900;letter-spacing:.1em;text-transform:uppercase}
+    .gallery-note{display:flex;justify-content:space-between;gap:16px;color:#a7a7a7;font-size:.68rem;margin:10px 3px 0}
 
-  /* scanlines */
-  body::after{
-    content:"";
-    position:fixed;
-    inset:0;
-    z-index:9998;
-    pointer-events:none;
-    opacity:0.4;
-    background:repeating-linear-gradient(to bottom, rgba(255,255,255,0.025) 0px, rgba(255,255,255,0.025) 1px, transparent 1px, transparent 3px);
-  }
+    .product-panel{position:relative;background:rgba(255,255,255,.86);border:1px solid rgba(0,0,0,.09);border-radius:30px;padding:31px;box-shadow:0 22px 65px rgba(0,0,0,.07);backdrop-filter:blur(11px)}
+    .product-panel::after{content:"夢";position:absolute;right:22px;top:18px;color:rgba(200,16,46,.075);font:900 5.8rem/1 "Noto Sans JP";pointer-events:none}
+    .eyebrow{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:.68rem;font-weight:900;letter-spacing:.17em;text-transform:uppercase}
+    .seal{display:grid;place-items:center;width:31px;height:31px;border:2px solid var(--red);color:var(--red);font-weight:900;transform:rotate(-4deg)}
+    h1{font-size:clamp(2.8rem,5vw,5rem);line-height:.91;letter-spacing:-.072em;margin:18px 0 16px;max-width:8ch}
+    h1 .jp-title{display:block;color:var(--red);font:700 .78rem/1.4 "Noto Sans JP";letter-spacing:.27em;margin-top:17px}
+    .intro{color:var(--muted);font-size:1rem;max-width:50ch;margin:0}
+    .value-line{display:grid;grid-template-columns:auto 1fr;align-items:end;gap:22px;margin:23px 0 17px;padding:20px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+    .small-label{display:block;color:var(--muted);font-size:.64rem;font-weight:900;letter-spacing:.15em;text-transform:uppercase;margin-bottom:3px}
+    .price{font-size:2.65rem;line-height:1;font-weight:900;letter-spacing:-.065em}
+    .delivery-copy{text-align:right;color:var(--muted);font-size:.78rem}
+    .delivery-copy strong{display:block;color:var(--success);font-size:.88rem}
+    .trust-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:21px}
+    .trust-item{min-width:0;background:#fff;border:1px solid var(--line);border-radius:13px;padding:11px}
+    .trust-icon{font:700 .77rem "Noto Sans JP";color:var(--red);margin-bottom:5px}
+    .trust-item b{display:block;font-size:.73rem;line-height:1.3}
+    .trust-item span{display:block;color:var(--muted);font-size:.64rem;margin-top:2px}
+    .selector-head{display:flex;justify-content:space-between;align-items:center;gap:15px;margin:3px 0 9px}
+    .selector-head strong{font-size:.87rem}
+    .text-button{border:0;background:none;padding:4px;color:var(--muted);text-decoration:underline;font-size:.78rem}
+    .sizes{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+    .size{position:relative;height:54px;border:1px solid #bdb8ae;border-radius:12px;background:#fff;font-weight:900;transition:background .2s,color .2s,border .2s,transform .2s}
+    .size:hover{border-color:#111;transform:translateY(-2px)}
+    .size.selected{background:#111;color:#fff;border-color:#111;box-shadow:inset 0 0 0 2px #fff}
+    .size.selected::after{content:"✓";position:absolute;right:8px;top:6px;font-size:.62rem;color:#fff}
+    .error{min-height:19px;color:#a40e22;font-size:.73rem;margin-top:4px}
+    .fit-note{color:var(--muted);font-size:.73rem;margin:0 0 13px}
+    .primary-button{position:relative;overflow:hidden;width:100%;min-height:61px;border:0;border-radius:14px;background:var(--red);color:#fff;font-size:1rem;font-weight:900;box-shadow:0 15px 34px rgba(200,16,46,.27);transition:transform .18s var(--ease),background .2s,box-shadow .2s}
+    .primary-button::before{content:"";position:absolute;top:-30%;bottom:-30%;left:-35%;width:25%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-20deg);animation:shine 4.8s infinite}
+    .primary-button:hover{background:var(--red-dark);transform:translateY(-2px);box-shadow:0 20px 42px rgba(200,16,46,.32)}
+    .primary-button:active{transform:scale(.987)}
+    .primary-button:disabled{cursor:not-allowed;opacity:.65;transform:none}
+    @keyframes shine{0%,65%{left:-35%}100%{left:125%}}
+    .micro-copy{text-align:center;color:var(--muted);font-size:.7rem;margin:9px 0 0}
+    .order-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:17px;padding:13px;background:#0c0c0c;color:#fff;border-radius:15px;position:relative;overflow:hidden}
+    .order-steps::after{content:"完";position:absolute;right:-5px;bottom:-35px;color:rgba(200,16,46,.22);font:900 5.4rem "Noto Sans JP"}
+    .order-step{position:relative;z-index:1}
+    .order-step i{display:grid;place-items:center;width:24px;height:24px;border:1px solid rgba(255,255,255,.35);border-radius:50%;font-style:normal;font-size:.63rem;margin-bottom:6px}
+    .order-step b{display:block;font-size:.66rem}
+    .order-step span{display:block;color:#999;font-size:.58rem;margin-top:2px}
+    .privacy{text-align:center;color:var(--muted);font-size:.68rem;margin:12px 0 0}
 
-  ::selection{background:var(--red);color:var(--white);}
+    .marquee{background:#0a0a0a;color:#fff;border-top:1px solid #232323;border-bottom:1px solid #232323;overflow:hidden}
+    .marquee-track{display:flex;width:max-content;animation:ticker 32s linear infinite}
+    .marquee span{font:900 clamp(2rem,5vw,4.6rem)/1 "Noto Sans JP";letter-spacing:-.05em;padding:22px 28px;white-space:nowrap;color:#fff}
+    .marquee span:nth-child(2n){color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.35)}
+    .marquee em{color:var(--red);font-style:normal;margin-left:20px}
 
-  .bebas{font-family:'Bebas Neue',sans-serif;letter-spacing:0.03em;}
+    .section{padding:96px 0}
+    .section-dark{background:#080808;color:#fff;position:relative;overflow:hidden}
+    .section-dark::after{content:"地中海の遺産";position:absolute;left:-25px;bottom:-60px;color:rgba(255,255,255,.025);font:900 10rem "Noto Sans JP";white-space:nowrap}
+    .section-heading{display:flex;justify-content:space-between;align-items:end;gap:30px;margin-bottom:38px}
+    .overline{color:var(--red);font-size:.66rem;font-weight:900;letter-spacing:.2em;text-transform:uppercase}
+    h2{font-size:clamp(2.25rem,4vw,4rem);line-height:.98;letter-spacing:-.06em;margin:8px 0 0}
+    .section-heading p{max-width:48ch;color:var(--muted);margin:0}
+    .section-dark .section-heading p{color:#aaa}
+    .feature-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;position:relative;z-index:1}
+    .feature{min-height:245px;padding:24px;border:1px solid rgba(255,255,255,.13);border-radius:18px;background:rgba(255,255,255,.035);transition:transform .3s var(--ease),background .3s,border-color .3s}
+    .feature:hover{transform:translateY(-7px);background:rgba(255,255,255,.06);border-color:rgba(200,16,46,.7)}
+    .feature-number{color:var(--red);font:900 1.55rem "Noto Sans JP"}
+    .feature-line{width:35px;height:1px;background:rgba(255,255,255,.25);margin:24px 0 28px;transition:width .3s}
+    .feature:hover .feature-line{width:75px;background:var(--red)}
+    .feature h3{font-size:.98rem;margin:0 0 8px}
+    .feature p{margin:0;color:#aaa;font-size:.81rem}
 
-  /* ---------- HERO ---------- */
-  .hero{
-    min-height:100svh;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    position:relative;
-    padding:40px 20px;
-    text-align:center;
-    background:
-      radial-gradient(circle at 50% 30%, rgba(200,16,46,0.12), transparent 60%),
-      var(--black);
-  }
+    .story-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:55px;align-items:center}
+    .story-visual{position:relative;min-height:560px;border-radius:28px;overflow:hidden;background:#c7c3bb;box-shadow:var(--shadow)}
+    .story-visual img{position:absolute;width:64%;border-radius:18px;box-shadow:0 26px 55px rgba(0,0,0,.2);transition:transform .45s var(--ease)}
+    .story-visual .front{left:6%;top:8%;transform:rotate(-4deg)}
+    .story-visual .back{right:5%;bottom:6%;transform:rotate(4deg)}
+    .story-visual:hover .front{transform:rotate(-6deg) translate(-6px,-5px)}
+    .story-visual:hover .back{transform:rotate(6deg) translate(6px,5px)}
+    .vertical-word{position:absolute;right:18px;top:20px;writing-mode:vertical-rl;color:rgba(0,0,0,.42);font-size:.7rem;font-weight:800;letter-spacing:.24em;z-index:2}
+    .story-copy p{color:var(--muted)}
+    .design-tabs{display:flex;gap:7px;flex-wrap:wrap;margin:24px 0 17px}
+    .design-tab{border:1px solid var(--line);background:#fff;border-radius:999px;padding:9px 13px;font-size:.74rem;font-weight:800;transition:.2s}
+    .design-tab.active{background:#111;color:#fff;border-color:#111}
+    .design-panel{min-height:107px;border-left:3px solid var(--red);padding:3px 0 3px 18px}
+    .design-panel h3{margin:0 0 7px;font-size:1rem}
+    .design-panel p{margin:0;color:var(--muted);font-size:.84rem}
+    .spec-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:27px}
+    .spec{border-top:1px solid var(--line);padding-top:12px}
+    .spec b{display:block;font-size:.8rem}
+    .spec span{color:var(--muted);font-size:.74rem}
 
-  .hero-katakana{
-    position:absolute;
-    top:6%;
-    right:6%;
-    writing-mode:vertical-rl;
-    font-family:'Noto Sans JP',sans-serif;
-    font-size:14px;
-    letter-spacing:0.4em;
-    color:rgba(245,245,240,0.35);
-    animation:fadeIn 1.4s ease both;
-  }
+    .process-section{background:var(--paper-2)}
+    .process{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .process article{position:relative;background:#fff;border:1px solid var(--line);border-radius:18px;padding:25px;overflow:hidden;transition:transform .25s var(--ease),box-shadow .25s}
+    .process article:hover{transform:translateY(-5px);box-shadow:0 18px 35px rgba(0,0,0,.07)}
+    .process small{color:var(--red);font-weight:900;letter-spacing:.15em}
+    .process h3{font-size:1.02rem;margin:30px 0 7px}
+    .process p{margin:0;color:var(--muted);font-size:.82rem}
+    .process-kanji{position:absolute;right:16px;top:5px;color:rgba(0,0,0,.05);font:900 4.5rem "Noto Sans JP"}
+    .process-arrow{position:absolute;right:-19px;top:50%;z-index:2;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:#111;color:#fff;border:4px solid var(--paper-2)}
 
-  .hero-katakana.left{right:auto;left:6%;top:8%;}
+    .faq{max-width:850px;margin:auto}
+    .faq details{border-bottom:1px solid var(--line);padding:20px 0}
+    .faq summary{display:flex;justify-content:space-between;gap:20px;font-weight:800;cursor:pointer;list-style:none}
+    .faq summary::-webkit-details-marker{display:none}
+    .faq summary::after{content:"＋";color:var(--red);font-size:1.22rem;transition:transform .25s}
+    .faq details[open] summary::after{transform:rotate(45deg)}
+    .faq p{color:var(--muted);margin:11px 46px 0 0}
 
-  .hero-logo{
-    max-width:480px;
-    width:80%;
-    filter:drop-shadow(0 0 40px rgba(200,16,46,0.25));
-    animation:heroReveal 1.1s cubic-bezier(.16,1,.3,1) both;
-  }
+    .closing{background:var(--red);color:#fff;padding:58px 0;position:relative;overflow:hidden}
+    .closing::after{content:"夢";position:absolute;right:3%;top:-42px;color:rgba(255,255,255,.1);font:900 10rem "Noto Sans JP"}
+    .closing-inner{display:flex;justify-content:space-between;align-items:center;gap:25px;position:relative;z-index:1}
+    .closing h2{margin:0}
+    .closing p{margin:9px 0 0;color:rgba(255,255,255,.8)}
+    .white-button{border:0;border-radius:14px;background:#fff;color:#111;padding:17px 24px;font-weight:900;transition:transform .2s}
+    .white-button:hover{transform:translateY(-3px)}
 
-  .hero-coords{
-    margin-top:22px;
-    font-size:11px;
-    letter-spacing:0.35em;
-    color:rgba(245,245,240,0.5);
-    text-transform:uppercase;
-    animation:fadeIn 1.4s ease 0.3s both;
-  }
+    .footer{background:#050505;color:#fff;padding:50px 0 28px}
+    .footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:40px}
+    .footer-logo{width:260px}
+    .footer p,.footer a{color:#999;font-size:.81rem}
+    .footer a:hover{color:#fff}
+    .footer h4{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase}
+    .footer-bottom{border-top:1px solid #242424;margin-top:31px;padding-top:18px;color:#777;font-size:.71rem;display:flex;justify-content:space-between;gap:20px}
 
-  .hero-tagline{
-    margin-top:14px;
-    font-family:'Bebas Neue',sans-serif;
-    font-size:clamp(22px,4vw,34px);
-    letter-spacing:0.08em;
-    color:var(--white);
-    animation:fadeIn 1.4s ease 0.45s both;
-  }
+    .mobile-bar{display:none;position:fixed;left:9px;right:9px;bottom:9px;z-index:70;background:rgba(7,7,7,.95);color:#fff;border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:8px;align-items:center;gap:10px;box-shadow:0 18px 45px rgba(0,0,0,.32);backdrop-filter:blur(16px)}
+    .mobile-bar strong{display:block;padding-left:6px}
+    .mobile-bar span{display:block;color:#aaa;font-size:.56rem;padding-left:6px;letter-spacing:.07em}
+    .mobile-bar button{margin-left:auto;border:0;border-radius:11px;background:var(--red);color:#fff;padding:12px 17px;font-weight:900}
 
-  .hero-tagline span{color:var(--red);}
+    .modal{display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.76);place-items:center;padding:15px;backdrop-filter:blur(7px)}
+    .modal.open{display:grid;animation:modalFade .2s ease-out}
+    @keyframes modalFade{from{opacity:0}to{opacity:1}}
+    .modal-card{width:min(720px,100%);max-height:94vh;overflow:auto;background:#fff;border-radius:24px;box-shadow:var(--shadow);animation:modalUp .3s var(--ease)}
+    @keyframes modalUp{from{opacity:0;transform:translateY(18px) scale(.985)}to{opacity:1;transform:none}}
+    .modal-head{position:sticky;top:0;z-index:2;display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.96);border-bottom:1px solid var(--line);padding:17px 21px;backdrop-filter:blur(15px)}
+    .modal-kicker{color:var(--red);font-size:.63rem;font-weight:900;letter-spacing:.16em;text-transform:uppercase}
+    .close{width:40px;height:40px;border:0;border-radius:50%;background:#eee;font-size:1.18rem}
+    .modal-body{padding:22px}
+    .checkout-progress{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:20px}
+    .checkout-progress span{height:4px;border-radius:10px;background:#ddd}
+    .checkout-progress span.on{background:var(--red)}
+    .summary{display:grid;grid-template-columns:78px 1fr auto;gap:13px;align-items:center;border:1px solid var(--line);border-radius:16px;padding:10px;margin-bottom:13px}
+    .summary img{width:78px;height:72px;object-fit:cover;border-radius:10px}
+    .summary b{display:block;font-size:.84rem}
+    .summary small{display:block;color:var(--muted);margin-top:3px}
+    .summary-price{text-align:right}
+    .summary-price b{font-size:1rem}
+    .summary-price span{display:block;color:var(--success);font-size:.61rem;font-weight:900;letter-spacing:.08em}
+    .cod-box{display:flex;align-items:center;gap:12px;background:#0c0c0c;color:#fff;border-radius:15px;padding:14px;margin-bottom:17px}
+    .cod-box .cod-symbol{font:700 1.1rem "Noto Sans JP";color:var(--red);border:1px solid rgba(255,255,255,.22);padding:8px;border-radius:9px}
+    .cod-box b{display:block;font-size:.8rem}
+    .cod-box span{display:block;color:#aaa;font-size:.69rem}
+    .fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .field.full{grid-column:1/-1}
+    .field label{display:block;font-size:.72rem;font-weight:800;margin:0 0 5px}
+    .field input,.field select,.field textarea{width:100%;border:1px solid #cfcac0;border-radius:11px;background:#fff;padding:12px 13px;outline:none;transition:border .2s,box-shadow .2s}
+    .field input:focus,.field select:focus,.field textarea:focus{border-color:#111;box-shadow:0 0 0 3px rgba(0,0,0,.07)}
+    .field textarea{resize:vertical}
+    .field .error{margin:3px 0 0;min-height:17px}
+    .honeypot{position:absolute;left:-9999px}
+    .total{display:flex;justify-content:space-between;align-items:center;margin:17px 0 12px;padding:15px;background:var(--paper);border-radius:13px}
+    .total span{font-size:.78rem;color:var(--muted)}
+    .total strong{font-size:1.15rem}
+    .submit{width:100%;min-height:55px;border:0;border-radius:13px;background:var(--red);color:#fff;font-weight:900}
+    .submit:disabled{opacity:.6;cursor:not-allowed}
+    .legal{text-align:center;color:var(--muted);font-size:.67rem;margin:8px 0 0}
+    .success{text-align:center;padding:32px 12px 18px}
+    .success-mark{display:grid;place-items:center;width:78px;height:78px;margin:auto;border:3px solid var(--red);color:var(--red);font:900 2rem "Noto Sans JP";transform:rotate(-4deg)}
+    .success h2{font-size:2.25rem;margin:24px 0 8px}
+    .success p{color:var(--muted)}
+    .zoom-modal{background:rgba(0,0,0,.92)}
+    .zoom-modal img{max-height:90vh;max-width:min(1100px,94vw);object-fit:contain;border-radius:16px}
+    .toast{position:fixed;left:50%;bottom:26px;z-index:350;transform:translate(-50%,25px);opacity:0;pointer-events:none;background:#111;color:#fff;border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:11px 16px;box-shadow:0 12px 30px rgba(0,0,0,.25);transition:.25s}
+    .toast.show{opacity:1;transform:translate(-50%,0)}
 
-  .hero-sub{
-    margin-top:10px;
-    max-width:480px;
-    font-size:13px;
-    line-height:1.7;
-    color:rgba(245,245,240,0.55);
-    animation:fadeIn 1.4s ease 0.6s both;
-  }
+    [data-reveal]{opacity:0;transform:translateY(24px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+    [data-reveal].visible{opacity:1;transform:none}
 
-  .hero-stamp{
-    margin-top:26px;
-    width:34px;
-    height:34px;
-    border:1.5px solid var(--red);
-    color:var(--red);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:16px;
-    animation:fadeIn 1.4s ease 0.75s both;
-  }
-
-  .scroll-cue{
-    position:absolute;
-    bottom:36px;
-    left:50%;
-    transform:translateX(-50%);
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:8px;
-    font-size:10px;
-    letter-spacing:0.3em;
-    color:rgba(245,245,240,0.45);
-    text-transform:uppercase;
-    animation:fadeIn 1.4s ease 1s both;
-  }
-
-  .scroll-cue .bar{
-    width:1px;
-    height:34px;
-    background:linear-gradient(to bottom, var(--red), transparent);
-    animation:scrollPulse 1.8s ease-in-out infinite;
-  }
-
-  @keyframes heroReveal{
-    from{opacity:0;transform:translateY(24px) scale(0.97);}
-    to{opacity:1;transform:translateY(0) scale(1);}
-  }
-  @keyframes fadeIn{
-    from{opacity:0;transform:translateY(10px);}
-    to{opacity:1;transform:translateY(0);}
-  }
-  @keyframes scrollPulse{
-    0%,100%{transform:scaleY(0.4);opacity:0.4;}
-    50%{transform:scaleY(1);opacity:1;}
-  }
-
-  /* ---------- MARQUEE ---------- */
-  .marquee{
-    border-top:1px solid var(--line);
-    border-bottom:1px solid var(--line);
-    padding:14px 0;
-    overflow:hidden;
-    white-space:nowrap;
-    background:var(--black-2);
-  }
-  .marquee-track{
-    display:inline-flex;
-    animation:marquee 26s linear infinite;
-  }
-  .marquee-track span{
-    font-family:'Bebas Neue',sans-serif;
-    font-size:16px;
-    letter-spacing:0.25em;
-    padding:0 26px;
-    color:rgba(245,245,240,0.6);
-    display:flex;
-    align-items:center;
-    gap:26px;
-  }
-  .marquee-track span::after{content:"夢";color:var(--red);font-size:14px;}
-  @keyframes marquee{
-    from{transform:translateX(0);}
-    to{transform:translateX(-50%);}
-  }
-
-  /* ---------- PRODUCT ---------- */
-  .product{
-    max-width:1100px;
-    margin:0 auto;
-    padding:90px 24px;
-    display:grid;
-    grid-template-columns:1.1fr 1fr;
-    gap:60px;
-    align-items:center;
-  }
-
-  .product-visual{
-    position:relative;
-    border:1px solid var(--line);
-    background:var(--black-2);
-    overflow:hidden;
-  }
-
-  .product-visual img{
-    width:100%;
-    display:block;
-    transition:transform 0.6s cubic-bezier(.16,1,.3,1);
-  }
-  .product-visual:hover img{transform:scale(1.03);}
-
-  .product-visual .tag{
-    position:absolute;
-    top:16px;
-    left:16px;
-    background:var(--red);
-    color:var(--white);
-    font-family:'Bebas Neue',sans-serif;
-    font-size:12px;
-    letter-spacing:0.15em;
-    padding:5px 12px;
-  }
-
-  .product-info .eyebrow{
-    font-size:11px;
-    letter-spacing:0.35em;
-    color:var(--red);
-    text-transform:uppercase;
-    margin-bottom:14px;
-  }
-
-  .product-info h2{
-    font-family:'Bebas Neue',sans-serif;
-    font-size:clamp(36px,5vw,58px);
-    line-height:1;
-    letter-spacing:0.02em;
-  }
-
-  .product-info .jp{
-    font-family:'Noto Sans JP',sans-serif;
-    font-size:14px;
-    letter-spacing:0.3em;
-    color:rgba(245,245,240,0.45);
-    margin-top:8px;
-  }
-
-  .product-info p.desc{
-    margin-top:22px;
-    font-size:14px;
-    line-height:1.9;
-    color:rgba(245,245,240,0.7);
-    max-width:440px;
-  }
-
-  .product-price{
-    margin-top:26px;
-    display:flex;
-    align-items:baseline;
-    gap:12px;
-  }
-  .product-price .amount{
-    font-family:'Bebas Neue',sans-serif;
-    font-size:34px;
-    color:var(--white);
-  }
-  .product-price .note{
-    font-size:11px;
-    letter-spacing:0.15em;
-    color:rgba(245,245,240,0.45);
-    text-transform:uppercase;
-  }
-
-  .product-meta{
-    margin-top:28px;
-    display:flex;
-    flex-wrap:wrap;
-    gap:10px;
-  }
-  .product-meta span{
-    border:1px solid var(--line);
-    font-size:11px;
-    letter-spacing:0.15em;
-    text-transform:uppercase;
-    padding:8px 14px;
-    color:rgba(245,245,240,0.7);
-  }
-
-  .cta-btn{
-    margin-top:34px;
-    width:100%;
-    max-width:320px;
-    padding:16px 22px;
-    background:transparent;
-    border:1.5px solid var(--white);
-    color:var(--white);
-    font-family:'Bebas Neue',sans-serif;
-    font-size:18px;
-    letter-spacing:0.15em;
-    cursor:pointer;
-    position:relative;
-    overflow:hidden;
-    transition:color 0.4s ease, border-color 0.4s ease;
-    text-transform:uppercase;
-  }
-  .cta-btn::before{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:var(--red);
-    transform:translateX(-101%);
-    transition:transform 0.4s cubic-bezier(.16,1,.3,1);
-    z-index:-1;
-  }
-  .cta-btn:hover{border-color:var(--red);}
-  .cta-btn:hover::before{transform:translateX(0);}
-
-  /* ---------- FORM ---------- */
-  .order-section{
-    border-top:1px solid var(--line);
-    padding:90px 24px 110px;
-    background:linear-gradient(to bottom, var(--black), var(--black-2));
-  }
-
-  .order-wrap{
-    max-width:640px;
-    margin:0 auto;
-  }
-
-  .order-head{
-    text-align:center;
-    margin-bottom:50px;
-  }
-
-  .order-head .eyebrow{
-    font-size:11px;
-    letter-spacing:0.35em;
-    color:var(--red);
-    text-transform:uppercase;
-    margin-bottom:14px;
-  }
-
-  .order-head h3{
-    font-family:'Bebas Neue',sans-serif;
-    font-size:clamp(32px,5vw,50px);
-  }
-
-  .order-head p{
-    margin-top:12px;
-    font-size:13px;
-    color:rgba(245,245,240,0.55);
-    line-height:1.7;
-  }
-
-  form{display:flex;flex-direction:column;gap:26px;}
-
-  .row{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
-
-  .field{position:relative;display:flex;flex-direction:column;}
-
-  .field label{
-    font-size:10px;
-    letter-spacing:0.2em;
-    text-transform:uppercase;
-    color:rgba(245,245,240,0.5);
-    margin-bottom:10px;
-  }
-
-  .field input,
-  .field select,
-  .field textarea{
-    background:transparent;
-    border:none;
-    border-bottom:1px solid var(--line);
-    padding:10px 2px;
-    color:var(--white);
-    font-family:'Noto Sans JP',sans-serif;
-    font-size:15px;
-    outline:none;
-    transition:border-color 0.3s ease;
-    resize:none;
-  }
-
-  .field select option{background:var(--black-2);color:var(--white);}
-
-  .field input:focus,
-  .field select:focus,
-  .field textarea:focus{border-color:var(--red);}
-
-  .field.error input,
-  .field.error select,
-  .field.error textarea{border-color:var(--red-glow);}
-
-  .field .err-msg{
-    font-size:10px;
-    color:var(--red-glow);
-    margin-top:6px;
-    letter-spacing:0.05em;
-    min-height:12px;
-  }
-
-  /* size grid */
-  .size-field label{margin-bottom:12px;}
-  .size-grid{display:flex;flex-wrap:wrap;gap:10px;}
-  .size-opt{
-    border:1px solid var(--line);
-    padding:10px 18px;
-    font-family:'Bebas Neue',sans-serif;
-    font-size:15px;
-    letter-spacing:0.1em;
-    color:rgba(245,245,240,0.7);
-    cursor:pointer;
-    transition:all 0.25s ease;
-    background:transparent;
-  }
-  .size-opt:hover{border-color:rgba(245,245,240,0.4);}
-  .size-opt.selected{
-    background:var(--red);
-    border-color:var(--red);
-    color:var(--white);
-  }
-
-  .submit-btn{
-    margin-top:14px;
-    padding:18px 22px;
-    background:var(--white);
-    border:none;
-    color:var(--black);
-    font-family:'Bebas Neue',sans-serif;
-    font-size:19px;
-    letter-spacing:0.2em;
-    text-transform:uppercase;
-    cursor:pointer;
-    position:relative;
-    overflow:hidden;
-    transition:color 0.4s ease;
-  }
-  .submit-btn::before{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:var(--red);
-    transform:translateX(-101%);
-    transition:transform 0.45s cubic-bezier(.16,1,.3,1);
-    z-index:0;
-  }
-  .submit-btn span{position:relative;z-index:1;}
-  .submit-btn:hover{color:var(--white);}
-  .submit-btn:hover::before{transform:translateX(0);}
-  .submit-btn:disabled{opacity:0.5;cursor:not-allowed;}
-  .submit-btn:disabled::before{transform:translateX(-101%) !important;}
-
-  .form-note{
-    font-size:11px;
-    color:rgba(245,245,240,0.4);
-    text-align:center;
-    margin-top:6px;
-    letter-spacing:0.05em;
-  }
-
-  /* ---------- SUCCESS ---------- */
-  .success{
-    display:none;
-    text-align:center;
-    padding:40px 20px;
-    animation:fadeIn 0.6s ease both;
-  }
-  .success.show{display:block;}
-  .success .stamp{
-    width:64px;height:64px;
-    border:2px solid var(--red);
-    color:var(--red);
-    display:flex;align-items:center;justify-content:center;
-    margin:0 auto 24px;
-    font-size:30px;
-    animation:heroReveal 0.6s ease both;
-  }
-  .success h3{
-    font-family:'Bebas Neue',sans-serif;
-    font-size:clamp(30px,5vw,46px);
-    margin-bottom:14px;
-  }
-  .success p{
-    color:rgba(245,245,240,0.6);
-    font-size:13px;
-    line-height:1.8;
-    max-width:420px;
-    margin:0 auto;
-  }
-  .success .order-id{
-    margin-top:26px;
-    display:inline-block;
-    border:1px solid var(--line);
-    padding:12px 22px;
-    font-family:'Bebas Neue',sans-serif;
-    letter-spacing:0.15em;
-    font-size:18px;
-    color:var(--red);
-  }
-  .success .back-btn{
-    display:block;
-    margin:34px auto 0;
-    background:none;
-    border:1px solid var(--line);
-    color:rgba(245,245,240,0.7);
-    padding:12px 26px;
-    font-family:'Bebas Neue',sans-serif;
-    letter-spacing:0.15em;
-    font-size:13px;
-    cursor:pointer;
-    transition:border-color 0.3s ease, color 0.3s ease;
-  }
-  .success .back-btn:hover{border-color:var(--white);color:var(--white);}
-
-  /* toast */
-  .toast{
-    position:fixed;
-    bottom:24px;
-    left:50%;
-    transform:translateX(-50%) translateY(20px);
-    background:var(--red-glow);
-    color:var(--white);
-    padding:12px 22px;
-    font-size:12px;
-    letter-spacing:0.1em;
-    opacity:0;
-    pointer-events:none;
-    transition:all 0.35s ease;
-    z-index:10000;
-    text-transform:uppercase;
-  }
-  .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
-
-  /* ---------- FOOTER ---------- */
-  footer{
-    border-top:1px solid var(--line);
-    padding:34px 24px;
-    text-align:center;
-  }
-  footer .bebas{font-size:16px;letter-spacing:0.2em;}
-  footer p{
-    margin-top:8px;
-    font-size:10px;
-    color:rgba(245,245,240,0.35);
-    letter-spacing:0.1em;
-  }
-
-  /* responsive */
-  @media (max-width:820px){
-    .product{grid-template-columns:1fr;gap:36px;padding:70px 22px;}
-    .row{grid-template-columns:1fr;gap:22px;}
-    .hero-katakana{display:none;}
-  }
-</style>
+    @media(max-width:980px){
+      .nav-links{display:none}
+      .hero-grid{grid-template-columns:1fr;gap:28px}
+      .gallery{position:relative;top:auto}
+      .product-panel{max-width:720px;margin:auto}
+      .feature-grid{grid-template-columns:1fr 1fr}
+      .story-grid{grid-template-columns:1fr}
+      .story-visual{min-height:520px}
+      .process-arrow{display:none}
+    }
+    @media(max-width:680px){
+      body{padding-bottom:82px}
+      .container{width:calc(100% - 22px)}
+      .announcement-group{font-size:.59rem;letter-spacing:.09em}
+      .nav-inner{height:63px}
+      .brand img{width:171px}
+      .nav-order{display:none}
+      .hero{padding:17px 0 50px}
+      .hero::before{display:none}
+      .visual-shell{padding:7px;border-radius:20px}
+      .stage{border-radius:15px}
+      .gallery-tabs{gap:5px}
+      .gallery-tab{border-radius:9px}
+      .gallery-tab span{font-size:.49rem}
+      .gallery-note{font-size:.61rem}
+      .product-panel{padding:20px;border-radius:21px}
+      h1{font-size:2.65rem}
+      .trust-row{grid-template-columns:1fr}
+      .trust-item{display:grid;grid-template-columns:42px 1fr;text-align:left;align-items:center}
+      .trust-icon{grid-row:1/3;margin:0}
+      .value-line{grid-template-columns:1fr auto;gap:12px}
+      .order-step span{display:none}
+      .section{padding:66px 0}
+      .section-heading{align-items:start;flex-direction:column;margin-bottom:28px}
+      .feature-grid{grid-template-columns:1fr}
+      .feature{min-height:auto}
+      .story-visual{min-height:420px}
+      .story-visual img{width:70%}
+      .spec-grid{grid-template-columns:1fr}
+      .process{grid-template-columns:1fr}
+      .closing-inner{align-items:flex-start;flex-direction:column}
+      .footer-grid{grid-template-columns:1fr}
+      .footer-bottom{flex-direction:column}
+      .mobile-bar{display:flex}
+      .fields{grid-template-columns:1fr}
+      .field.full{grid-column:auto}
+      .modal-body{padding:16px}
+      .modal-head{padding:14px 16px}
+      .summary{grid-template-columns:68px 1fr auto}
+      .summary img{width:68px;height:64px}
+    }
+    @media(prefers-reduced-motion:reduce){
+      *,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}
+      [data-reveal]{opacity:1;transform:none}
+    }
+  </style>
 </head>
 <body>
+  <a class="skip" href="#product">Skip to product</a>
+  <div class="scroll-line" id="scrollLine" aria-hidden="true"></div>
 
-<!-- HERO -->
-<section class="hero">
-  <span class="hero-katakana left">夢 の 服</span>
-  <span class="hero-katakana">チュニジア</span>
-  <img class="hero-logo" src="logo.png" alt="CHU-NI-JI-A">
-  <div class="hero-coords">36°48'N 10°11'E — Soliman, Tunisia</div>
-  <div class="hero-tagline">Mediterranean roots. <span>fire soul.</span></div>
-  <p class="hero-sub">Tunisian streetwear built at the crossroads of heritage and imagination. Limited drops, made to be felt before they're made to be worn.</p>
-  <div class="hero-stamp">夢</div>
-  <div class="scroll-cue"><span>Scroll</span><div class="bar"></div></div>
-</section>
-
-<!-- MARQUEE -->
-<div class="marquee">
-  <div class="marquee-track">
-    <span>CHU-NI-JI-A</span><span>MEDITERRANEAN HERITAGE</span><span>チュニジア</span><span>LIMITED DROP</span>
-    <span>CHU-NI-JI-A</span><span>MEDITERRANEAN HERITAGE</span><span>チュニジア</span><span>LIMITED DROP</span>
-  </div>
-</div>
-
-<!-- PRODUCT -->
-<section class="product" id="product">
-  <div class="product-visual">
-    <span class="tag">Drop 01</span>
-    <img src="chunijia-tee.jpg" alt="CHU-NI-JI-A Mediterranean Heritage Tee">
-  </div>
-  <div class="product-info">
-    <div class="eyebrow">The Item</div>
-    <h2>Mediterranean<br>Heritage Tee</h2>
-    <div class="jp">チュニジア — 夢</div>
-    <p class="desc">Oversized fit. Heavyweight cotton. A topographic map of Tunisia on the back, coordinates of home stitched into every detail. Front chest hit in katakana and English. Built for the streets, dreamed in ink.</p>
-    <div class="product-price">
-      <span class="amount">89 DT</span>
-      <span class="note">Cash on delivery / bank transfer</span>
+  <div class="announcement" aria-label="Current order terms">
+    <div class="announcement-track" aria-hidden="true">
+      <div class="announcement-group"><span>79 DT delivered</span><span>Free shipping in Tunisia</span><span>Cash on delivery only</span><span>No advance payment</span></div>
+      <div class="announcement-group"><span>79 DT delivered</span><span>Free shipping in Tunisia</span><span>Cash on delivery only</span><span>No advance payment</span></div>
     </div>
-    <div class="product-meta">
-      <span>Oversized Fit</span>
-      <span>Heavyweight Cotton</span>
-      <span>NFC Tag</span>
-      <span>Limited Run</span>
-    </div>
-    <button class="cta-btn" onclick="document.getElementById('reserve').scrollIntoView({behavior:'smooth'})">Reserve This Piece</button>
   </div>
-</section>
 
-<!-- ORDER FORM -->
-<section class="order-section" id="reserve">
-  <div class="order-wrap">
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="#" aria-label="CHU-NI-JI-A home"><img src="brand-lockup.webp" alt="CHU-NI-JI-A チュニジア"></a>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="#product">The tee</a>
+        <a href="#design">Design</a>
+        <a href="#delivery">Delivery</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <button class="nav-order" id="navOrder" type="button">Order · 79 DT</button>
+    </div>
+  </header>
 
-    <div id="formView">
-      <div class="order-head">
-        <div class="eyebrow">Secure Your Drop</div>
-        <h3>Reserve The Tee</h3>
-        <p>Fill in your details below. We'll reach out to confirm your order before it ships anywhere in Tunisia.</p>
-      </div>
-
-      <form id="orderForm" novalidate>
-        <div class="row">
-          <div class="field" data-field="firstName">
-            <label>First Name</label>
-            <input type="text" name="firstName" autocomplete="given-name">
-            <div class="err-msg"></div>
-          </div>
-          <div class="field" data-field="lastName">
-            <label>Last Name</label>
-            <input type="text" name="lastName" autocomplete="family-name">
-            <div class="err-msg"></div>
-          </div>
-        </div>
-
-        <div class="field" data-field="email">
-          <label>Email Address</label>
-          <input type="email" name="email" autocomplete="email">
-          <div class="err-msg"></div>
-        </div>
-
-        <div class="field" data-field="phone">
-          <label>Phone Number</label>
-          <input type="tel" name="phone" autocomplete="tel" placeholder="+216 XX XXX XXX">
-          <div class="err-msg"></div>
-        </div>
-
-        <div class="field" data-field="address">
-          <label>Address</label>
-          <input type="text" name="address" autocomplete="street-address" placeholder="Street, building, area">
-          <div class="err-msg"></div>
-        </div>
-
-        <div class="row">
-          <div class="field" data-field="wilaya">
-            <label>City / Wilaya</label>
-            <select name="wilaya">
-              <option value="">Select your wilaya</option>
-              <option>Ariana</option><option>Béja</option><option>Ben Arous</option>
-              <option>Bizerte</option><option>Gabès</option><option>Gafsa</option>
-              <option>Jendouba</option><option>Kairouan</option><option>Kasserine</option>
-              <option>Kébili</option><option>Kef</option><option>Mahdia</option>
-              <option>Manouba</option><option>Médenine</option><option>Monastir</option>
-              <option>Nabeul</option><option>Sfax</option><option>Sidi Bouzid</option>
-              <option>Siliana</option><option>Sousse</option><option>Tataouine</option>
-              <option>Tozeur</option><option>Tunis</option><option>Zaghouan</option>
-            </select>
-            <div class="err-msg"></div>
-          </div>
-          <div class="field" data-field="hiddenSize">
-            <input type="hidden" name="size" id="sizeInput">
-            <div class="size-field">
-              <label>Size</label>
-              <div class="size-grid">
-                <button type="button" class="size-opt" data-size="S">S</button>
-                <button type="button" class="size-opt" data-size="M">M</button>
-                <button type="button" class="size-opt" data-size="L">L</button>
-                <button type="button" class="size-opt" data-size="XL">XL</button>
+  <main>
+    <section class="hero" id="product">
+      <div class="container hero-grid">
+        <div class="gallery" data-reveal>
+          <div class="visual-shell">
+            <div class="stage" id="stage" tabindex="0" aria-label="Product image. Use left and right arrow keys to browse.">
+              <div class="stage-meta"><span class="stage-tag">Drop 001</span><span class="stage-tag light" id="viewLabel">Full view</span></div>
+              <img class="stage-image" id="mainImage" src="chunijia-tee.jpg" alt="Front and back of the CHU-NI-JI-A Mediterranean Heritage Tee" fetchpriority="high">
+              <div class="image-counter" id="imageCounter">01 / 04</div>
+              <div class="gallery-arrows">
+                <button class="round-button" id="prevImage" type="button" aria-label="Previous product image">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+                </button>
+                <button class="round-button" id="zoomButton" type="button" aria-label="Open large product image">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4M11 8v6M8 11h6"/></svg>
+                </button>
+                <button class="round-button" id="nextImage" type="button" aria-label="Next product image">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+                </button>
               </div>
             </div>
-            <div class="err-msg"></div>
+            <div class="gallery-tabs" role="tablist" aria-label="Product views">
+              <button class="gallery-tab active" type="button" role="tab" aria-selected="true" data-index="0"><img src="chunijia-tee.jpg" alt=""><span>Full</span></button>
+              <button class="gallery-tab" type="button" role="tab" aria-selected="false" data-index="1"><img src="tee-front.webp" alt=""><span>Front</span></button>
+              <button class="gallery-tab" type="button" role="tab" aria-selected="false" data-index="2"><img src="tee-back.webp" alt=""><span>Back</span></button>
+              <button class="gallery-tab" type="button" role="tab" aria-selected="false" data-index="3"><img src="tee-detail.webp" alt=""><span>Detail</span></button>
+            </div>
+          </div>
+          <div class="gallery-note"><span>Hover to inspect · swipe on mobile</span><span class="jp">前 · 後 · 詳細</span></div>
+        </div>
+
+        <div class="product-panel" data-reveal>
+          <div class="eyebrow"><span class="seal jp">夢</span> CHU-NI-JI-A · Mediterranean Heritage</div>
+          <h1>Tunisia,<br>encoded.<span class="jp-title" lang="ja">地中海の遺産</span></h1>
+          <p class="intro">A white oversized statement tee with a restrained front identity and a detailed Tunisia composition across the back.</p>
+
+          <div class="value-line">
+            <div><span class="small-label">Final delivered price</span><div class="price">79 DT</div></div>
+            <div class="delivery-copy"><strong>Free delivery across Tunisia</strong>Pay the courier only when it arrives.</div>
+          </div>
+
+          <div class="trust-row" aria-label="Order benefits">
+            <div class="trust-item"><div class="trust-icon">配送</div><b>Free delivery</b><span>Included in 79 DT</span></div>
+            <div class="trust-item"><div class="trust-icon">現金</div><b>Cash on delivery</b><span>No card or transfer</span></div>
+            <div class="trust-item"><div class="trust-icon">確認</div><b>Confirmation call</b><span>Before dispatch</span></div>
+          </div>
+
+          <div class="selector-head"><strong>Choose your size</strong><button class="text-button" id="fitButton" type="button">Fit help</button></div>
+          <div class="sizes" aria-label="Available sizes">
+            <button class="size" type="button" data-size="S" aria-pressed="false">S</button>
+            <button class="size" type="button" data-size="M" aria-pressed="false">M</button>
+            <button class="size" type="button" data-size="L" aria-pressed="false">L</button>
+          </div>
+          <div class="error" id="sizeError" role="alert"></div>
+          <p class="fit-note">Relaxed oversized fit. Choose your usual size; we reconfirm it before dispatch.</p>
+          <button class="primary-button" id="buyNow" type="button">Order now · Pay on delivery</button>
+          <p class="micro-copy">No payment today · No hidden delivery fee · 79 DT total</p>
+
+          <div class="order-steps" aria-label="Order process">
+            <div class="order-step"><i>1</i><b>Send details</b><span>About one minute</span></div>
+            <div class="order-step"><i>2</i><b>We confirm</b><span>Size and address</span></div>
+            <div class="order-step"><i>3</i><b>Receive & pay</b><span>79 DT cash</span></div>
+          </div>
+          <p class="privacy">Your information is used only to confirm and deliver your order.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>TUNISIA IN EVERY LINE <em>夢</em></span><span>チュニジア · DROP 001</span><span>TUNISIA IN EVERY LINE <em>夢</em></span><span>チュニジア · DROP 001</span>
+      </div>
+    </div>
+
+    <section class="section section-dark" id="design">
+      <div class="container">
+        <div class="section-heading" data-reveal>
+          <div><div class="overline">Designed with intention</div><h2>Four reasons it feels different.</h2></div>
+          <p>A clear visual identity, a wearable silhouette, and an order process that removes payment risk before delivery.</p>
+        </div>
+        <div class="feature-grid">
+          <article class="feature" data-reveal><div class="feature-number">一</div><div class="feature-line"></div><h3>Tunisia reinterpreted</h3><p>The back artwork turns the map into the central visual statement rather than a generic graphic.</p></article>
+          <article class="feature" data-reveal><div class="feature-number">二</div><div class="feature-line"></div><h3>Japanese restraint</h3><p>Monochrome typography, deliberate spacing, and one red seal create a controlled visual rhythm.</p></article>
+          <article class="feature" data-reveal><div class="feature-number">三</div><div class="feature-line"></div><h3>Front-to-back contrast</h3><p>The chest remains quiet while the back carries the full story, keeping the piece easy to wear.</p></article>
+          <article class="feature" data-reveal><div class="feature-number">四</div><div class="feature-line"></div><h3>Low-risk ordering</h3><p>You pay nothing online. Your size and address are confirmed before the order is dispatched.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container story-grid">
+        <div class="story-visual" data-reveal>
+          <span class="vertical-word jp">チュニジア · 地中海の遺産</span>
+          <img class="front" src="tee-front.webp" alt="Front of the white CHU-NI-JI-A tee" loading="lazy">
+          <img class="back" src="tee-back.webp" alt="Back of the tee with Tunisia artwork" loading="lazy">
+        </div>
+        <div class="story-copy" data-reveal>
+          <div class="overline">Tunisian soul · Japanese discipline</div>
+          <h2>A piece that reads from both sides.</h2>
+          <p>CHU-NI-JI-A combines Tunisian references with a sharp Japanese-inspired visual language. The front is restrained; the back opens into a detailed statement.</p>
+          <div class="design-tabs" role="tablist" aria-label="Design details">
+            <button class="design-tab active" type="button" role="tab" aria-selected="true" data-design="map">Tunisia map</button>
+            <button class="design-tab" type="button" role="tab" aria-selected="false" data-design="front">Front identity</button>
+            <button class="design-tab" type="button" role="tab" aria-selected="false" data-design="seal">Red seal</button>
+          </div>
+          <div class="design-panel" id="designPanel" aria-live="polite">
+            <h3>Tunisia becomes the centerpiece.</h3>
+            <p>The map artwork fills the back with topographic linework, Arabic lettering, and geographic coordinates.</p>
+          </div>
+          <div class="spec-grid">
+            <div class="spec"><b>Color</b><span>White with black and red artwork</span></div>
+            <div class="spec"><b>Fit</b><span>Relaxed oversized silhouette</span></div>
+            <div class="spec"><b>Sizes</b><span>S · M · L</span></div>
+            <div class="spec"><b>Care</b><span>Wash inside out; avoid ironing the print</span></div>
           </div>
         </div>
+      </div>
+    </section>
 
-        <div class="field" data-field="expectation">
-          <label>Anything you're hoping for? (optional)</label>
-          <textarea name="expectation" rows="3" placeholder="Sizing questions, delivery notes, custom requests..."></textarea>
+    <section class="section process-section" id="delivery">
+      <div class="container">
+        <div class="section-heading" data-reveal>
+          <div><div class="overline">Simple and transparent</div><h2>From click to delivery.</h2></div>
+          <p>No card details, no advance transfer, and no extra delivery fee.</p>
         </div>
+        <div class="process">
+          <article data-reveal><span class="process-kanji">選</span><small>STEP 01</small><h3>Choose S, M, or L</h3><p>Select your size and enter only the details needed for delivery.</p><span class="process-arrow">→</span></article>
+          <article data-reveal><span class="process-kanji">確</span><small>STEP 02</small><h3>Confirm by phone</h3><p>We verify your size, phone number, and address before dispatch.</p><span class="process-arrow">→</span></article>
+          <article data-reveal><span class="process-kanji">受</span><small>STEP 03</small><h3>Receive and pay</h3><p>Delivery is free. Pay the courier 79 DT in cash when it arrives.</p></article>
+        </div>
+      </div>
+    </section>
 
-        <button type="submit" class="submit-btn" id="submitBtn"><span>Reserve My Tee</span></button>
-        <p class="form-note">No payment now — Cash on Delivery or Bank Transfer, confirmed by our team.</p>
-      </form>
+    <section class="section" id="faq">
+      <div class="container faq">
+        <div class="section-heading" data-reveal><div><div class="overline">Before you order</div><h2>Good to know.</h2></div></div>
+        <details open data-reveal><summary>What is the final amount?</summary><p>79 DT total. Delivery is included anywhere in Tunisia.</p></details>
+        <details data-reveal><summary>How do I pay?</summary><p>Cash on delivery only. No card, bank transfer, or advance payment is requested.</p></details>
+        <details data-reveal><summary>Which sizes are available?</summary><p>The available sizes are S, M, and L. The fit is relaxed and oversized.</p></details>
+        <details data-reveal><summary>What happens after I order?</summary><p>Your order remains pending until the CHU-NI-JI-A team contacts you to confirm the size and delivery details.</p></details>
+        <details data-reveal><summary>How do I protect the print?</summary><p>Wash the tee inside out at a low temperature, avoid direct ironing on the artwork, and air dry when possible.</p></details>
+      </div>
+    </section>
+
+    <section class="closing">
+      <div class="container closing-inner">
+        <div><h2>Wear Tunisia differently.</h2><p>79 DT delivered. Pay only when the tee reaches you.</p></div>
+        <button class="white-button" id="bottomOrder" type="button">Choose a size & order</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div><img class="footer-logo" src="brand-lockup.webp" alt="CHU-NI-JI-A"><p>Contemporary Tunisian streetwear shaped by Japanese visual discipline.</p></div>
+        <div><h4>Explore</h4><p><a href="#product">The tee</a></p><p><a href="#design">Design story</a></p><p><a href="#delivery">Delivery process</a></p></div>
+        <div><h4>Order terms</h4><p>Price: 79 DT</p><p>Delivery: Free in Tunisia</p><p>Payment: Cash on delivery</p><p>Sizes: S · M · L</p></div>
+      </div>
+      <div class="footer-bottom"><span>© 2026 CHU-NI-JI-A</span><span class="jp">チュニジア · 地中海の遺産</span></div>
     </div>
+  </footer>
 
-    <div class="success" id="successView">
-      <div class="stamp">夢</div>
-      <h3>You're In.</h3>
-      <p>Your Mediterranean Heritage Tee is reserved. We'll contact you shortly to confirm sizing and delivery details.</p>
-      <div class="order-id" id="orderIdDisplay">CHU-000000</div>
-      <button class="back-btn" onclick="resetForm()">Reserve Another</button>
-    </div>
-
+  <div class="mobile-bar">
+    <div><strong>79 DT</strong><span>FREE DELIVERY · CASH ON DELIVERY</span></div>
+    <button id="mobileOrder" type="button">Order now</button>
   </div>
-</section>
 
-<footer>
-  <div class="bebas">CHU-NI-JI-A</div>
-  <p>MEDITERRANEAN HERITAGE — SOLIMAN, TUNISIA — LIMITED DROPS ONLY</p>
-</footer>
+  <div class="modal" id="checkoutModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="checkoutTitle">
+    <div class="modal-card">
+      <div class="modal-head">
+        <div><div class="modal-kicker">Cash on delivery</div><strong id="checkoutTitle">Complete your order</strong></div>
+        <button class="close" type="button" data-close="checkoutModal" aria-label="Close checkout">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="checkout-progress" aria-label="Checkout progress"><span class="on"></span><span class="on"></span><span></span></div>
+        <div id="formView">
+          <div class="summary">
+            <img src="tee-front.webp" alt="Mediterranean Heritage Tee">
+            <div><b>Mediterranean Heritage Tee</b><small id="summarySize">Size: —</small></div>
+            <div class="summary-price"><b>79 DT</b><span>FREE DELIVERY</span></div>
+          </div>
+          <div class="cod-box"><div class="cod-symbol">現金</div><div><b>Pay the courier when it arrives</b><span>No card details and no advance payment.</span></div></div>
+          <form id="orderForm" novalidate>
+            <div class="fields">
+              <div class="field full"><label for="fullName">Full name</label><input id="fullName" name="fullName" autocomplete="name" maxlength="120" required placeholder="Your full name"><div class="error"></div></div>
+              <div class="field"><label for="phone">Phone number</label><input id="phone" name="phone" autocomplete="tel" inputmode="tel" maxlength="20" required placeholder="+216 XX XXX XXX"><div class="error"></div></div>
+              <div class="field"><label for="wilaya">Wilaya</label><select id="wilaya" name="wilaya" required><option value="">Choose</option><option>Ariana</option><option>Béja</option><option>Ben Arous</option><option>Bizerte</option><option>Gabès</option><option>Gafsa</option><option>Jendouba</option><option>Kairouan</option><option>Kasserine</option><option>Kébili</option><option>Kef</option><option>Mahdia</option><option>Manouba</option><option>Médenine</option><option>Monastir</option><option>Nabeul</option><option>Sfax</option><option>Sidi Bouzid</option><option>Siliana</option><option>Sousse</option><option>Tataouine</option><option>Tozeur</option><option>Tunis</option><option>Zaghouan</option></select><div class="error"></div></div>
+              <div class="field full"><label for="address">Delivery address</label><input id="address" name="address" autocomplete="street-address" maxlength="180" required placeholder="Street, city, landmark"><div class="error"></div></div>
+              <div class="field full"><label for="note">Delivery note <span style="font-weight:400;color:#777">(optional)</span></label><textarea id="note" name="note" rows="2" maxlength="300" placeholder="Best call time or useful landmark"></textarea></div>
+              <div class="honeypot" aria-hidden="true"><label for="website">Website</label><input id="website" name="website" tabindex="-1" autocomplete="off"></div>
+            </div>
+            <input type="hidden" id="selectedSize" name="size">
+            <div class="total"><span>Total due on delivery</span><strong>79 DT</strong></div>
+            <button class="submit" id="submitOrder" type="submit">Confirm cash-on-delivery order</button>
+            <p class="legal">By submitting, you ask CHU-NI-JI-A to contact you and confirm this delivery.</p>
+          </form>
+        </div>
+        <div class="success" id="successView" hidden>
+          <div class="success-mark">完</div>
+          <h2>Order received.</h2>
+          <p>No payment was taken. We will contact you before dispatch.</p>
+          <p><strong id="orderRef"></strong></p>
+          <button class="submit" type="button" data-close="checkoutModal">Done</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
-<div class="toast" id="toast"></div>
+  <div class="modal" id="fitModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="fitTitle">
+    <div class="modal-card" style="max-width:540px">
+      <div class="modal-head"><div><div class="modal-kicker">Oversized silhouette</div><strong id="fitTitle">Fit help</strong></div><button class="close" type="button" data-close="fitModal" aria-label="Close fit help">×</button></div>
+      <div class="modal-body">
+        <h3 style="margin-top:0">Choose your usual size.</h3>
+        <p style="color:var(--muted)">The tee is designed with a relaxed oversized shape. Available sizes are S, M, and L. Your selected size is reconfirmed by phone before dispatch.</p>
+        <div class="spec-grid" style="margin:20px 0"><div class="spec"><b>S</b><span>Smaller oversized silhouette</span></div><div class="spec"><b>M</b><span>Balanced oversized silhouette</span></div><div class="spec"><b>L</b><span>Roomier oversized silhouette</span></div></div>
+        <button class="submit" type="button" data-close="fitModal">Choose my size</button>
+      </div>
+    </div>
+  </div>
 
-<script type="module">
-  // ============================================================
-  // 🔥 PASTE YOUR FIREBASE CONFIG HERE
-  // Firebase Console → Project Settings → Your Apps → SDK setup
-  // ============================================================
-const firebaseConfig = {
+  <div class="modal zoom-modal" id="zoomModal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Large product image">
+    <button class="close" type="button" data-close="zoomModal" style="position:fixed;right:18px;top:18px" aria-label="Close large product image">×</button>
+    <img id="zoomImage" src="chunijia-tee.jpg" alt="Large view of the product">
+  </div>
 
-  apiKey: "AIzaSyC6qMv45NYb4tCC40-mpaVQT_YcHIN7C7s",
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  authDomain: "chunijia.firebaseapp.com",
+  <script type="module">
+    const firebaseConfig={apiKey:"AIzaSyC6qMv45NYb4tCC40-mpaVQT_YcHIN7C7s",authDomain:"chunijia.firebaseapp.com",projectId:"chunijia",storageBucket:"chunijia.firebasestorage.app",messagingSenderId:"442351281491",appId:"1:442351281491:web:f758336101d8ece738ada6"};
+    import{initializeApp}from"https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+    import{getFirestore,collection,addDoc,serverTimestamp}from"https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
 
-  databaseURL: "https://chunijia-default-rtdb.europe-west1.firebasedatabase.app",
+    const db=getFirestore(initializeApp(firebaseConfig));
+    const $=selector=>document.querySelector(selector);
+    const $$=selector=>document.querySelectorAll(selector);
+    const allowedSizes=new Set(["S","M","L"]);
+    const loadedAt=Date.now();
+    let selectedSize="";
+    let lastFocus=null;
+    let toastTimer;
+    let currentImage=0;
+    let touchStartX=0;
 
-  projectId: "chunijia",
+    const productImages=[
+      {src:"chunijia-tee.jpg",alt:"Front and back of the CHU-NI-JI-A Mediterranean Heritage Tee",label:"Full view"},
+      {src:"tee-front.webp",alt:"Front view of the white CHU-NI-JI-A tee",label:"Front view"},
+      {src:"tee-back.webp",alt:"Back view with the Tunisia artwork",label:"Back artwork"},
+      {src:"tee-detail.webp",alt:"Close-up of the Tunisia map artwork",label:"Artwork detail"}
+    ];
 
-  storageBucket: "chunijia.firebasestorage.app",
+    function showToast(message){
+      const toast=$("#toast");
+      clearTimeout(toastTimer);
+      toast.textContent=message;
+      toast.classList.add("show");
+      toastTimer=setTimeout(()=>toast.classList.remove("show"),2300);
+    }
 
-  messagingSenderId: "442351281491",
+    function updateGallery(index){
+      currentImage=(index+productImages.length)%productImages.length;
+      const image=productImages[currentImage];
+      const stage=$("#stage");
+      const main=$("#mainImage");
+      stage.classList.add("loading");
+      const preloader=new Image();
+      preloader.onload=()=>{
+        main.src=image.src;
+        main.alt=image.alt;
+        $("#zoomImage").src=image.src;
+        $("#zoomImage").alt=`Large view: ${image.alt}`;
+        $("#viewLabel").textContent=image.label;
+        $("#imageCounter").textContent=`${String(currentImage+1).padStart(2,"0")} / ${String(productImages.length).padStart(2,"0")}`;
+        $$(".gallery-tab").forEach((tab,i)=>{
+          const active=i===currentImage;
+          tab.classList.toggle("active",active);
+          tab.setAttribute("aria-selected",String(active));
+        });
+        stage.classList.remove("loading");
+      };
+      preloader.onerror=()=>stage.classList.remove("loading");
+      preloader.src=image.src;
+    }
 
-  appId: "1:442351281491:web:f758336101d8ece738ada6"
-
-};
-
-  // ============================================================
-
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
-  import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
-
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-
-  const form = document.getElementById('orderForm');
-  const submitBtn = document.getElementById('submitBtn');
-  const sizeInput = document.getElementById('sizeInput');
-  const sizeOpts = document.querySelectorAll('.size-opt');
-  const toast = document.getElementById('toast');
-
-  sizeOpts.forEach(btn => {
-    btn.addEventListener('click', () => {
-      sizeOpts.forEach(b => b.classList.remove('selected'));
-      btn.classList.add('selected');
-      sizeInput.value = btn.dataset.size;
-      clearError('hiddenSize');
+    $$(".gallery-tab").forEach(tab=>tab.addEventListener("click",()=>updateGallery(Number(tab.dataset.index))));
+    $("#prevImage").addEventListener("click",()=>updateGallery(currentImage-1));
+    $("#nextImage").addEventListener("click",()=>updateGallery(currentImage+1));
+    $("#stage").addEventListener("keydown",event=>{
+      if(event.key==="ArrowLeft")updateGallery(currentImage-1);
+      if(event.key==="ArrowRight")updateGallery(currentImage+1);
+      if(event.key==="Enter")openModal("zoomModal");
     });
-  });
-
-  function showToast(msg){
-    toast.textContent = msg;
-    toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 2600);
-  }
-
-  function setError(fieldName, msg){
-    const wrap = form.querySelector(`[data-field="${fieldName}"]`);
-    if(!wrap) return;
-    wrap.classList.add('error');
-    const err = wrap.querySelector('.err-msg');
-    if(err) err.textContent = msg;
-  }
-
-  function clearError(fieldName){
-    const wrap = form.querySelector(`[data-field="${fieldName}"]`);
-    if(!wrap) return;
-    wrap.classList.remove('error');
-    const err = wrap.querySelector('.err-msg');
-    if(err) err.textContent = '';
-  }
-
-  function clearAllErrors(){
-    form.querySelectorAll('.field').forEach(f => {
-      f.classList.remove('error');
-      const err = f.querySelector('.err-msg');
-      if(err) err.textContent = '';
+    $("#stage").addEventListener("touchstart",event=>{touchStartX=event.changedTouches[0].clientX},{passive:true});
+    $("#stage").addEventListener("touchend",event=>{
+      const delta=event.changedTouches[0].clientX-touchStartX;
+      if(Math.abs(delta)>45)updateGallery(currentImage+(delta<0?1:-1));
+    },{passive:true});
+    $("#stage").addEventListener("pointermove",event=>{
+      if(!window.matchMedia("(hover:hover) and (pointer:fine)").matches)return;
+      const rect=event.currentTarget.getBoundingClientRect();
+      $("#mainImage").style.transformOrigin=`${((event.clientX-rect.left)/rect.width)*100}% ${((event.clientY-rect.top)/rect.height)*100}%`;
     });
-  }
+    $("#stage").addEventListener("pointerleave",()=>{$("#mainImage").style.transformOrigin="50% 50%"});
 
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const phoneRegex = /^[\d\s\+\-]{8,15}$/;
+    $$(".size").forEach(button=>button.addEventListener("click",()=>{
+      $$(".size").forEach(item=>{item.classList.remove("selected");item.setAttribute("aria-pressed","false")});
+      button.classList.add("selected");
+      button.setAttribute("aria-pressed","true");
+      selectedSize=button.dataset.size;
+      $("#selectedSize").value=selectedSize;
+      $("#summarySize").textContent=`Size: ${selectedSize}`;
+      $("#sizeError").textContent="";
+      showToast(`Size ${selectedSize} selected`);
+    }));
 
-  function validate(data){
-    let valid = true;
-    if(!data.firstName.trim()){ setError('firstName','Required'); valid = false; }
-    if(!data.lastName.trim()){ setError('lastName','Required'); valid = false; }
-    if(!emailRegex.test(data.email.trim())){ setError('email','Enter a valid email'); valid = false; }
-    if(!phoneRegex.test(data.phone.trim())){ setError('phone','Enter a valid phone number'); valid = false; }
-    if(!data.address.trim()){ setError('address','Required'); valid = false; }
-    if(!data.wilaya){ setError('wilaya','Select your wilaya'); valid = false; }
-    if(!data.size){ setError('hiddenSize','Select a size'); valid = false; }
-    return valid;
-  }
-
-  function genOrderId(){
-    const rand = Math.floor(100000 + Math.random() * 900000);
-    return `CHU-${rand}`;
-  }
-
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    clearAllErrors();
-
-    const fd = new FormData(form);
-    const data = {
-      firstName: fd.get('firstName') || '',
-      lastName: fd.get('lastName') || '',
-      email: fd.get('email') || '',
-      phone: fd.get('phone') || '',
-      address: fd.get('address') || '',
-      wilaya: fd.get('wilaya') || '',
-      size: fd.get('size') || '',
-      expectation: fd.get('expectation') || ''
+    const designContent={
+      map:{title:"Tunisia becomes the centerpiece.",copy:"The map artwork fills the back with topographic linework, Arabic lettering, and geographic coordinates."},
+      front:{title:"A quiet front with a clear identity.",copy:"The chest graphic keeps the first impression minimal, leaving the back to carry the larger visual story."},
+      seal:{title:"One red mark breaks the monochrome.",copy:"The red seal acts as a controlled accent, creating the Japanese-inspired rhythm used throughout the brand."}
     };
+    $$(".design-tab").forEach(tab=>tab.addEventListener("click",()=>{
+      $$(".design-tab").forEach(item=>{item.classList.remove("active");item.setAttribute("aria-selected","false")});
+      tab.classList.add("active");
+      tab.setAttribute("aria-selected","true");
+      const content=designContent[tab.dataset.design];
+      $("#designPanel").innerHTML=`<h3>${content.title}</h3><p>${content.copy}</p>`;
+    }));
 
-    if(!validate(data)) {
-      showToast('Please check the highlighted fields');
-      return;
+    function getFocusable(modal){return [...modal.querySelectorAll('button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),a[href]')].filter(el=>!el.hidden)}
+    function openModal(id){
+      lastFocus=document.activeElement;
+      const modal=document.getElementById(id);
+      modal.classList.add("open");
+      modal.setAttribute("aria-hidden","false");
+      document.body.style.overflow="hidden";
+      setTimeout(()=>getFocusable(modal)[0]?.focus(),40);
+    }
+    function closeModal(id){
+      const modal=document.getElementById(id);
+      modal.classList.remove("open");
+      modal.setAttribute("aria-hidden","true");
+      document.body.style.overflow="";
+      lastFocus?.focus?.();
+    }
+    function order(){
+      if(!allowedSizes.has(selectedSize)){
+        $("#sizeError").textContent="Choose S, M, or L to continue.";
+        $("#product").scrollIntoView({behavior:"smooth",block:"center"});
+        showToast("Choose your size first");
+        return;
+      }
+      $("#formView").hidden=false;
+      $("#successView").hidden=true;
+      openModal("checkoutModal");
     }
 
-    submitBtn.disabled = true;
-    submitBtn.querySelector('span').textContent = 'Reserving...';
+    $("#buyNow").addEventListener("click",order);
+    $("#mobileOrder").addEventListener("click",order);
+    $("#navOrder").addEventListener("click",()=>$("#product").scrollIntoView({behavior:"smooth"}));
+    $("#bottomOrder").addEventListener("click",()=>{$("#product").scrollIntoView({behavior:"smooth"});setTimeout(()=>$(".size")?.focus(),450)});
+    $("#fitButton").addEventListener("click",()=>openModal("fitModal"));
+    $("#zoomButton").addEventListener("click",()=>openModal("zoomModal"));
+    $("#stage").addEventListener("dblclick",()=>openModal("zoomModal"));
+    $$('[data-close]').forEach(button=>button.addEventListener("click",()=>closeModal(button.dataset.close)));
+    $$(".modal").forEach(modal=>modal.addEventListener("click",event=>{if(event.target===modal)closeModal(modal.id)}));
+    document.addEventListener("keydown",event=>{
+      const modal=$(".modal.open");
+      if(event.key==="Escape"&&modal)closeModal(modal.id);
+      if(event.key==="Tab"&&modal){
+        const focusable=getFocusable(modal);
+        if(!focusable.length)return;
+        const first=focusable[0],last=focusable[focusable.length-1];
+        if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus()}
+        else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus()}
+      }
+    });
 
-    const orderId = genOrderId();
+    const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{
+      if(entry.isIntersecting){entry.target.classList.add("visible");observer.unobserve(entry.target)}
+    }),{threshold:.12});
+    $$('[data-reveal]').forEach(element=>observer.observe(element));
 
-    try {
-      await addDoc(collection(db, "preorders"), {
-        orderId,
-        firstName: data.firstName.trim(),
-        lastName: data.lastName.trim(),
-        fullName: `${data.firstName.trim()} ${data.lastName.trim()}`,
-        email: data.email.trim(),
-        phone: data.phone.trim(),
-        address: data.address.trim(),
-        wilaya: data.wilaya,
-        size: data.size,
-        expectation: data.expectation.trim(),
-        product: "Mediterranean Heritage Tee",
-        createdAt: serverTimestamp(),
-        status: "pending"
-      });
-
-      document.getElementById('orderIdDisplay').textContent = orderId;
-      document.getElementById('formView').style.display = 'none';
-      document.getElementById('successView').classList.add('show');
-
-      const TELEGRAM_CHAT_ID = "8770936838";
-const TELEGRAM_TOKEN = "8393982671:AAEHaFxeH3SfZw1Lv-IOVxKITf9SHPAltrQ";
-
-const telegramMessage = `
-🔥 NEW CHU-NI-JI-A ORDER
-
-Customer:
-${data.firstName} ${data.lastName}
-
-Phone:
-${data.phone}
-
-Size:
-${data.size}
-
-City:
-${data.wilaya}
-
-Address:
-${data.address}
-
-Order ID:
-${orderId}
-`;
-
-fetch(
-  `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage?chat_id=${TELEGRAM_CHAT_ID}&text=${encodeURIComponent(telegramMessage)}`
-);
-      window.scrollTo({top: document.getElementById('reserve').offsetTop - 40, behavior:'smooth'});
-
-    } catch(err){
-      console.error(err);
-      showToast('Something went wrong — try again');
-      submitBtn.disabled = false;
-      submitBtn.querySelector('span').textContent = 'Reserve My Tee';
+    function updateScrollLine(){
+      const max=document.documentElement.scrollHeight-window.innerHeight;
+      $("#scrollLine").style.width=`${max>0?(window.scrollY/max)*100:0}%`;
     }
-  });
+    window.addEventListener("scroll",updateScrollLine,{passive:true});
+    updateScrollLine();
 
-  window.resetForm = function(){
-    form.reset();
-    sizeOpts.forEach(b => b.classList.remove('selected'));
-    sizeInput.value = '';
-    clearAllErrors();
-    submitBtn.disabled = false;
-    submitBtn.querySelector('span').textContent = 'Reserve My Tee';
-    document.getElementById('formView').style.display = 'block';
-    document.getElementById('successView').classList.remove('show');
-  };
-</script>
+    const form=$("#orderForm");
+    function clearErrors(){form.querySelectorAll(".error").forEach(element=>element.textContent="")}
+    function showFieldError(element,message){element.closest(".field").querySelector(".error").textContent=message}
 
+    form.addEventListener("submit",async event=>{
+      event.preventDefault();
+      clearErrors();
+      const data=new FormData(form);
+      const fullName=String(data.get("fullName")||"").trim().replace(/\s+/g," ");
+      const phone=String(data.get("phone")||"").trim();
+      const address=String(data.get("address")||"").trim();
+      const wilaya=String(data.get("wilaya")||"");
+      let valid=true;
+      if(fullName.length<2){showFieldError($("#fullName"),"Enter your full name");valid=false}
+      if(!/^[+\d][\d\s-]{7,18}$/.test(phone)){showFieldError($("#phone"),"Enter a valid phone number");valid=false}
+      if(!wilaya){showFieldError($("#wilaya"),"Choose your wilaya");valid=false}
+      if(address.length<3){showFieldError($("#address"),"Enter the delivery address");valid=false}
+      if(!allowedSizes.has(selectedSize)){showToast("The selected size is not available");valid=false}
+      if(String(data.get("website")||""))return;
+      if(Date.now()-loadedAt<1500){showToast("Please review your information and try again.");return}
+      if(!valid)return;
+
+      const nameParts=fullName.split(" ");
+      const firstName=nameParts.shift()||fullName;
+      const lastName=nameParts.join(" ")||"-";
+      const button=$("#submitOrder");
+      const orderId=`CHU-${Date.now().toString().slice(-7)}`;
+      button.disabled=true;
+      button.textContent="Saving your order…";
+      try{
+        await addDoc(collection(db,"preorders"),{
+          orderId,
+          firstName,
+          lastName,
+          fullName,
+          phone,
+          email:"",
+          address,
+          wilaya,
+          size:selectedSize,
+          payment:"Cash on delivery",
+          expectation:String(data.get("note")||"").trim(),
+          product:"Mediterranean Heritage Tee",
+          price:79,
+          currency:"TND",
+          shippingFee:0,
+          status:"pending",
+          createdAt:serverTimestamp(),
+          source:"website-v4-japanese"
+        });
+        $("#orderRef").textContent=`Reference: ${orderId}`;
+        $("#formView").hidden=true;
+        $("#successView").hidden=false;
+        form.reset();
+      }catch(error){
+        console.error(error);
+        showToast("Order could not be saved. Please try again.");
+      }finally{
+        button.disabled=false;
+        button.textContent="Confirm cash-on-delivery order";
+      }
+    });
+  </script>
 </body>
 </html>

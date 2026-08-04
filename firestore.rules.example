@@ -1,0 +1,32 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() { return request.auth != null; }
+    function isAdmin() { return signedIn() && request.auth.token.admin == true; }
+
+    match /preorders/{orderId} {
+      allow create: if request.resource.data.keys().hasOnly([
+        'orderId','firstName','lastName','fullName','phone','email','address','wilaya','size','payment','expectation','product','price','currency','shippingFee','status','createdAt','source'
+      ])
+      && request.resource.data.firstName is string
+      && request.resource.data.firstName.size() >= 1
+      && request.resource.data.firstName.size() <= 60
+      && request.resource.data.lastName is string
+      && request.resource.data.lastName.size() >= 1
+      && request.resource.data.lastName.size() <= 60
+      && request.resource.data.phone is string
+      && request.resource.data.phone.size() >= 8
+      && request.resource.data.phone.size() <= 20
+      && request.resource.data.address is string
+      && request.resource.data.address.size() >= 3
+      && request.resource.data.address.size() <= 180
+      && request.resource.data.size in ['S','M','L']
+      && request.resource.data.status == 'pending'
+      && request.resource.data.price == 79
+      && request.resource.data.currency == 'TND'
+      && request.resource.data.payment == 'Cash on delivery'
+      && request.resource.data.shippingFee == 0;
+      allow read, update, delete: if isAdmin();
+    }
+  }
+}
