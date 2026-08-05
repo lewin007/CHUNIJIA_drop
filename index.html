@@ -582,6 +582,10 @@
 
   <script type="module">
     const firebaseConfig={apiKey:"AIzaSyC6qMv45NYb4tCC40-mpaVQT_YcHIN7C7s",authDomain:"chunijia.firebaseapp.com",projectId:"chunijia",storageBucket:"chunijia.firebasestorage.app",messagingSenderId:"442351281491",appId:"1:442351281491:web:f758336101d8ece738ada6"};
+
+    // PUBLIC endpoint only. Paste the Google Apps Script URL ending in /exec here.
+    // Never paste your Telegram bot token or chat ID into this website.
+    const TELEGRAM_NOTIFICATION_URL="https://script.google.com/macros/s/AKfycbxpnj3YrpfwDuhbueN9IgN1j-KCrQMNwnOhI0Nz4XUOwAiul63J7K2LdipqVWzPjXGa/exec";
     import{initializeApp}from"https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
     import{getFirestore,collection,addDoc,serverTimestamp}from"https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
 
@@ -609,6 +613,43 @@
       toast.textContent=message;
       toast.classList.add("show");
       toastTimer=setTimeout(()=>toast.classList.remove("show"),2300);
+    }
+
+    function telegramNotifierIsConfigured(){
+      return /^https:\/\/script\.google\.com\/macros\/s\/[^/]+\/exec$/.test(TELEGRAM_NOTIFICATION_URL);
+    }
+
+    async function notifyTelegram(order){
+      if(!telegramNotifierIsConfigured()){
+        console.info("Telegram notifier is not configured. Add the Apps Script /exec URL to TELEGRAM_NOTIFICATION_URL.");
+        return false;
+      }
+
+      try{
+        await fetch(TELEGRAM_NOTIFICATION_URL,{
+          method:"POST",
+          mode:"no-cors",
+          cache:"no-store",
+          keepalive:true,
+          headers:{"Content-Type":"text/plain;charset=UTF-8"},
+          body:JSON.stringify({
+            source:"chunijia.tech",
+            orderId:order.orderId,
+            fullName:order.fullName,
+            phone:order.phone,
+            wilaya:order.wilaya,
+            address:order.address,
+            size:order.size,
+            note:order.note||"",
+            website:""
+          })
+        });
+        return true;
+      }catch(error){
+        // The Firestore order remains saved even if Telegram is temporarily unavailable.
+        console.warn("Telegram notification could not be sent:",error);
+        return false;
+      }
     }
 
     function updateGallery(index){
@@ -771,7 +812,8 @@
       button.disabled=true;
       button.textContent="Saving your order…";
       try{
-        await addDoc(collection(db,"preorders"),{
+        const note=String(data.get("note")||"").trim();
+        const orderData={
           orderId,
           firstName,
           lastName,
@@ -782,15 +824,22 @@
           wilaya,
           size:selectedSize,
           payment:"Cash on delivery",
-          expectation:String(data.get("note")||"").trim(),
+          expectation:note,
           product:"Mediterranean Heritage Tee",
           price:79,
           currency:"TND",
           shippingFee:0,
           status:"pending",
           createdAt:serverTimestamp(),
-          source:"website-v4-japanese"
-        });
+          source:"website-v5-apps-script-telegram"
+        };
+
+        await addDoc(collection(db,"preorders"),orderData);
+
+        // Send the notification after Firestore confirms that the order was saved.
+        // keepalive lets the request continue even if the customer closes the page.
+        void notifyTelegram({orderId,fullName,phone,wilaya,address,size:selectedSize,note});
+
         $("#orderRef").textContent=`Reference: ${orderId}`;
         $("#formView").hidden=true;
         $("#successView").hidden=false;

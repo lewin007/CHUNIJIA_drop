@@ -1,0 +1,17 @@
+PRIVATE CODES — DO NOT PUT THEM IN GITHUB
+
+1) TELEGRAM_BOT_TOKEN
+   Put it in:
+   Google Apps Script > Project Settings > Script properties
+
+2) TELEGRAM_CHAT_ID
+   Put it in:
+   Google Apps Script > Project Settings > Script properties
+
+PUBLIC VALUE — PUT THIS IN index.html
+
+3) Google Apps Script URL ending in /exec
+   Search index.html for:
+   PASTE_YOUR_GOOGLE_APPS_SCRIPT_EXEC_URL_HERE
+
+Full instructions: TELEGRAM-SETUP.md

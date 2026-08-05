@@ -1,3 +1,10 @@
+# Telegram notification update
+
+- Added a free Google Apps Script Telegram notifier.
+- Kept the Telegram bot token and chat ID out of the public website.
+- Added duplicate and request-rate controls in Apps Script.
+- The public storefront sends notifications only after Firestore saves an order.
+
 # Storefront update
 
 - Removed the fourth size option from the storefront, checkout validation, admin filters, FAQ, and Firestore rules. Available sizes are now S, M, and L.
